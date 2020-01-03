@@ -28,9 +28,9 @@ const SearchMovie = props => {
     <>
       <Header />
       <StyledSearchResult>
-        <h2>
+        <h1>
           Search results for <strong>"{query}"</strong>
-        </h2>
+        </h1>
         {movies ? (
           <StyledListMovie>
             {movies.map(movie => (
@@ -66,7 +66,7 @@ export default SearchMovie;
 const StyledSearchResult = styled.div`
   text-align: center;
 
-  h2 {
+  h1 {
     color: #666;
     font-weight: 400;
     font-size: 1rem;
