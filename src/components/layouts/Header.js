@@ -1,26 +1,36 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import menuBar from "../../assets/img/menu-bar.png";
-import search from "../../assets/img/search.png";
-import logoHeader from "../../assets/img/logo-header-white.png";
+import menuBarPng from "../../assets/img/menu-bar.png";
+import searchPng from "../../assets/img/search.png";
+import logoHeaderWebp from "../../assets/img/logo-header-white.webp";
+import logoHeaderPng from "../../assets/img/logo-header-white.png";
 
-const Header = () => {
-  const [query, setQuery] = useState("");
-  const [activeSearch, setActiveSearch] = useState(false);
+const Header = props => {
+  // const [query, setQuery] = useState("");
+  // const [activeSearch, setActiveSearch] = useState(false);
 
-  const handleToggleSearch = event => {};
+  // const handleToggleSearch = event => {
+
+  // };
 
   return (
     <StyledHeader>
-      <StyleToggle>
-        <img src={menuBar} width="22" height="22" alt="Menu" />
-      </StyleToggle>
+      <Toggle>
+        <picture>
+          <img src={menuBarPng} width="20" alt="Menu" />
+        </picture>
+      </Toggle>
       <div>
-        <img src={logoHeader} height="32" alt="Logo" />
+        <picture>
+          <source srcSet={logoHeaderWebp} type="image/webp" />
+          <img src={logoHeaderPng} height="30" alt="Logo" />
+        </picture>
       </div>
-      <StyleToggle onClick={event => setActiveSearch(true)}>
-        <img src={search} width="22" height="22" alt="Search" />
-      </StyleToggle>
+      <Toggle>
+        <picture>
+          <img src={searchPng} width="20" alt="Search" />
+        </picture>
+      </Toggle>
     </StyledHeader>
   );
 };
@@ -28,19 +38,21 @@ const Header = () => {
 export default Header;
 
 const StyledHeader = styled.header`
-  background: linear-gradient(to bottom, #ff6d5a, #ff4158);
+  width: 100%;
   height: 70px;
+  z-index: 1;
   padding: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background: linear-gradient(to bottom, #ff6d5a, #ff4158);
 
-  & > div:nth-child(1),
-  & > div:nth-child(3) {
+  > div:nth-child(1),
+  > div:nth-child(3) {
     flex: 0 0 20px;
   }
-  & > div:nth-child(2) {
+  > div:nth-child(2) {
     flex: 1 0 0;
     text-align: center;
     padding-left: 10px;
@@ -48,6 +60,6 @@ const StyledHeader = styled.header`
   }
 `;
 
-const StyleToggle = styled.div`
+const Toggle = styled.div`
   cursor: pointer;
 `;

@@ -7,7 +7,7 @@ import SearchMovie from "./components/pages/SearchMovie";
 import PageNotFound from "./components/pages/PageNotFound";
 
 const GlobalStyle = createGlobalStyle`
-  @import url("https://fonts.googleapis.com/css?family=Ubuntu:400,400i,500,700&display=swap");
+  @import url('https://fonts.googleapis.com/css?family=Ubuntu:400,400i,500,700&display=swap');
   @import url("https://fonts.googleapis.com/css?family=Noto+Sans&display=swap");
 
   * {
@@ -19,6 +19,15 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: "Ubuntu", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  body, html, #root {
+    height: -webkit-fill-available;
+    height: -moz-available;
+    height: stretch;
+    min-height: 100%;
   }
 `;
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import logo from "../../assets/img/logo-white.png";
+import logoPng from "../../assets/img/logo-white.png";
+import logoWebp from "../../assets/img/logo-white.webp";
 import styled from "styled-components";
 
 const Home = props => {
@@ -16,11 +17,14 @@ const Home = props => {
   };
 
   return (
-    <StyledBackground>
-      <StyledContainer>
-        <StyledLogo src={logo} alt="Logo" />
-        <StyledForm onSubmit={handleSubmit}>
-          <StyledInputSearch
+    <Background>
+      <Container>
+        <picture>
+          <source srcSet={logoWebp} type="image/webp" />
+          <img src={logoPng} alt="Logo" />
+        </picture>
+        <Form onSubmit={handleSubmit}>
+          <InputSearch
             type="text"
             name="title"
             id="title"
@@ -28,44 +32,39 @@ const Home = props => {
             value={title}
             onChange={event => setTitle(event.target.value)}
           />
-          <StyledInputButton type="submit">SEARCH</StyledInputButton>
-        </StyledForm>
-      </StyledContainer>
-    </StyledBackground>
+          <InputButton type="submit">SEARCH</InputButton>
+        </Form>
+      </Container>
+    </Background>
   );
 };
 
 export default Home;
 
-const StyledBackground = styled.div`
+const Background = styled.div`
   background: linear-gradient(to bottom, #ff6d5a, #ff4158);
+  min-height: 100%;
 `;
 
-const StyledContainer = styled.div`
-  min-width: 100vw;
-  /* 100% height */
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+const Container = styled.div`
   display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  min-height: -webkit-fill-available;
+  min-height: -moz-available;
+  min-height: stretch;
   align-items: center;
   justify-content: space-around;
-  flex-direction: column;
   padding-top: 20vh;
   padding-bottom: 10vh;
 `;
 
-const StyledLogo = styled.img`
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-`;
-
-const StyledForm = styled.form`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
 `;
 
-const StyledInputSearch = styled.input`
+const InputSearch = styled.input`
   min-width: 250px;
   background-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 1px 0.5px #fff;
@@ -90,7 +89,7 @@ const StyledInputSearch = styled.input`
   }
 `;
 
-const StyledInputButton = styled.button`
+const InputButton = styled.button`
   margin-top: 1.5rem;
   min-width: 250px;
   background-color: #fff;

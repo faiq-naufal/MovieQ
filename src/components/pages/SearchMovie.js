@@ -3,67 +3,94 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import device from "../../helpers/device";
-import logo from "../../assets/img/logo-white.png";
 import Header from "../layouts/Header";
+import PosterMovie from "./PosterMovie";
 
 const SearchMovie = props => {
   const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
-  let { query } = useParams();
+  const { query } = useParams();
+  const endPoint = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`;
 
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getMovie = async () => {
-      const response = await axios.get(
-        `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`
-      );
+      setLoading(true);
+      const response = await axios.get(endPoint);
 
       setMovies(response.data.Search);
+      setLoading(false);
     };
 
     getMovie();
-  }, [query]);
+  }, [endPoint]);
 
   return (
     <>
-      <Header />
-      <StyledSearchResult>
-        <h1>
-          Search results for <strong>"{query}"</strong>
-        </h1>
-        {movies ? (
-          <StyledListMovie>
-            {movies.map(movie => (
-              <StyledMovieCard key={movie.imdbID}>
-                <StyledLink to={`/movie/${movie.imdbID}`}>
-                  {movie.Poster !== "N/A" ? (
-                    <StyledThumbnail>
-                      <StyledImageThumbnail
-                        src={movie.Poster}
-                        alt={movie.Title}
-                      />
-                    </StyledThumbnail>
-                  ) : (
-                    <StyledThumbnail noImage={true}>
-                      <StyledLogo src={logo} alt="Logo" />
-                    </StyledThumbnail>
-                  )}
-                  <div style={{ margin: "1.5rem 0" }}>{movie.Title}</div>
-                </StyledLink>
-              </StyledMovieCard>
-            ))}
-          </StyledListMovie>
-        ) : (
-          "No Movies Found"
-        )}
-      </StyledSearchResult>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          <Gradient>
+            <Header />
+          </Gradient>
+          <Container>
+            <SearchResult>
+              <h1>
+                Search results for <strong>"{query}"</strong>
+              </h1>
+              {movies ? (
+                <ListMovie>
+                  {movies.map(movie => (
+                    <MovieCard key={movie.imdbID}>
+                      <WrapperLink to={`/movie/${movie.imdbID}`}>
+                        <PosterMovie
+                          poster={movie.Poster}
+                          title={movie.Title}
+                        />
+                        <div style={{ margin: "1.5rem 0" }}>{movie.Title}</div>
+                      </WrapperLink>
+                    </MovieCard>
+                  ))}
+                </ListMovie>
+              ) : (
+                "No Movies Found"
+              )}
+            </SearchResult>
+          </Container>
+        </>
+      )}
     </>
   );
 };
 
 export default SearchMovie;
 
-const StyledSearchResult = styled.div`
+const Gradient = styled.div`
+  position: relative;
+  width: 100%;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    left: -25%;
+    z-index: -1;
+    background: linear-gradient(to bottom, #ff6d5a, #ff4158);
+    box-shadow: 0 2px 12px 0 #ff6d5a;
+    width: 150%;
+    min-height: 125px;
+    border-radius: 50%;
+  }
+`;
+
+const Container = styled.div`
+  margin-right: 5%;
+  margin-left: 5%;
+`;
+
+const SearchResult = styled.div`
   text-align: center;
 
   h1 {
@@ -74,17 +101,17 @@ const StyledSearchResult = styled.div`
   }
 `;
 
-const StyledListMovie = styled.ul`
+const ListMovie = styled.ul`
   list-style: none;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
 `;
 
-const StyledMovieCard = styled.li`
+const MovieCard = styled.li`
   width: 50%;
   display: inline-block;
-  padding: 0 1rem;
+  padding: 0 0.75rem;
 
   @media ${device.mobileL} {
     width: 33.333%;
@@ -99,7 +126,7 @@ const StyledMovieCard = styled.li`
   }
 `;
 
-const StyledLink = styled(Link)`
+const WrapperLink = styled(Link)`
   width: 100%;
   display: inline-block;
   font-size: 0.875rem;
@@ -111,38 +138,4 @@ const StyledLink = styled(Link)`
     text-decoration: none;
   }
   /* padding-top: 56.25%; */
-`;
-
-const StyledThumbnail = styled.div`
-  height: auto;
-  width: 100%;
-  position: relative;
-  padding-bottom: 125%;
-  background: ${props =>
-    props.noImage
-      ? "linear-gradient(to bottom, #ff6d5a, #ff4158)"
-      : "transparent"};
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-`;
-
-const StyledImageThumbnail = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  max-width: 100%;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 50%;
-`;
-
-const StyledLogo = styled.img`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
 `;
