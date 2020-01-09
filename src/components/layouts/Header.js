@@ -46,7 +46,6 @@ const StyledHeader = styled.header`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(to bottom, #ff6d5a, #ff4158);
 
   > div:nth-child(1),
   > div:nth-child(3) {
