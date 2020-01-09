@@ -28,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
     height: -moz-available;
     height: stretch;
     min-height: 100%;
+    overflow-x: hidden;
   }
 `;
 

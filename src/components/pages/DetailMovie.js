@@ -65,7 +65,11 @@ const DetailMovie = () => {
               <TopSection>
                 <FlexList>
                   <LeftPoster>
-                    <PosterMovie poster={movie.Poster} title={movie.Title} />
+                    <PosterMovie
+                      position="absolute"
+                      poster={movie.Poster}
+                      title={movie.Title}
+                    />
                   </LeftPoster>
                   <RightPoster>
                     <Title>{movie.Title}</Title>
@@ -94,7 +98,9 @@ const DetailMovie = () => {
               </TopSection>
               <section>
                 <FlexList>
-                  <LeftPoster />
+                  <LeftPoster>
+                    <TopSpace></TopSpace>
+                  </LeftPoster>
                   <RightPoster>
                     <FlexList wrap="true">
                       {movie.Genre.split(", ").map((genre, index) => (
@@ -222,7 +228,7 @@ const GenreList = styled.div`
   padding: 6px 12px;
   letter-spacing: 0.3px;
   line-height: normal;
-  font-size: 10px;
+  font-size: 11px;
   margin-right: 5px;
   margin-bottom: 10px;
   text-align: center;
@@ -245,7 +251,7 @@ const LeftPoster = styled.div`
   max-width: 240px;
 
   & > div {
-    position: absolute;
+    position: ${props => (props.position ? props.position : "relative")};
   }
 `;
 
@@ -368,12 +374,18 @@ const FlexList = styled.div`
   flex-wrap: ${props => (props.wrap ? "wrap" : "nowrap")};
 `;
 
+const TopSpace = styled.div`
+  width: 100%;
+  height: 0;
+  margin-top: -100%;
+  padding-bottom: 145%;
+`;
+
 const TopSection = styled.section`
+  position: relative;
   /* min-height: 300px; */
   min-height: 175px;
   margin-bottom: 2.75vh;
-  position: relative;
-
   &::before {
     content: "";
     position: absolute;

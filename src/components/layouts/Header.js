@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import menuBarPng from "../../assets/img/menu-bar.png";
 import searchPng from "../../assets/img/search.png";
