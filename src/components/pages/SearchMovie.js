@@ -88,6 +88,11 @@ const Gradient = styled.div`
 const Container = styled.div`
   margin-right: 5%;
   margin-left: 5%;
+
+  @media ${device.laptop} {
+    max-width: 1200px;
+    margin: auto;
+  }
 `;
 
 const SearchResult = styled.div`

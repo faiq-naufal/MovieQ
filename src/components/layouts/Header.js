@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import device from "../../helpers/device";
 import menuBarPng from "../../assets/img/menu-bar.png";
 import searchPng from "../../assets/img/search.png";
 import logoHeaderWebp from "../../assets/img/logo-header-white.webp";
@@ -14,28 +15,40 @@ const Header = props => {
   // };
 
   return (
-    <StyledHeader>
-      <Toggle>
-        <picture>
-          <img src={menuBarPng} width="20" alt="Menu" />
-        </picture>
-      </Toggle>
-      <div>
-        <picture>
-          <source srcSet={logoHeaderWebp} type="image/webp" />
-          <img src={logoHeaderPng} height="30" alt="Logo" />
-        </picture>
-      </div>
-      <Toggle>
-        <picture>
-          <img src={searchPng} width="20" alt="Search" />
-        </picture>
-      </Toggle>
-    </StyledHeader>
+    <Container>
+      <StyledHeader>
+        <Toggle>
+          <picture>
+            <img src={menuBarPng} width="20" alt="Menu" />
+          </picture>
+        </Toggle>
+        <div>
+          <picture>
+            <source srcSet={logoHeaderWebp} type="image/webp" />
+            <img src={logoHeaderPng} height="30" alt="Logo" />
+          </picture>
+        </div>
+        <Toggle>
+          <picture>
+            <img src={searchPng} width="20" alt="Search" />
+          </picture>
+        </Toggle>
+      </StyledHeader>
+    </Container>
   );
 };
 
 export default Header;
+
+const Container = styled.div`
+  margin-right: 2.5%;
+  margin-left: 2.5%;
+
+  @media ${device.laptop} {
+    max-width: 1200px;
+    margin: auto;
+  }
+`;
 
 const StyledHeader = styled.header`
   width: 100%;

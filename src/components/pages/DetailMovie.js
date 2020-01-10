@@ -61,15 +61,11 @@ const DetailMovie = () => {
         <React.Fragment>
           <Header />
           <Main>
-            <Container>
-              <TopSection>
+            <TopSection>
+              <Container>
                 <FlexList>
                   <LeftPoster>
-                    <PosterMovie
-                      position="absolute"
-                      poster={movie.Poster}
-                      title={movie.Title}
-                    />
+                    <PosterMovie poster={movie.Poster} title={movie.Title} />
                   </LeftPoster>
                   <RightPoster>
                     <Title>{movie.Title}</Title>
@@ -95,8 +91,10 @@ const DetailMovie = () => {
                     </FlexList>
                   </RightPoster>
                 </FlexList>
-              </TopSection>
-              <section>
+              </Container>
+            </TopSection>
+            <section>
+              <Container>
                 <FlexList>
                   <LeftPoster>
                     <TopSpace></TopSpace>
@@ -109,9 +107,11 @@ const DetailMovie = () => {
                     </FlexList>
                   </RightPoster>
                 </FlexList>
-              </section>
-              <section style={{ maxWidth: "450px" }}>
-                <FlexList>
+              </Container>
+            </section>
+            <section>
+              <Container>
+                <FlexList style={{ maxWidth: "450px" }}>
                   {movie.Ratings.map((rating, index) => {
                     switch (rating.Source) {
                       case "Internet Movie Database":
@@ -154,11 +154,15 @@ const DetailMovie = () => {
                     }
                   })}
                 </FlexList>
-              </section>
-              <section>
+              </Container>
+            </section>
+            <section>
+              <Container>
                 <Actors>{movie.Actors}</Actors>
-              </section>
-              <section>
+              </Container>
+            </section>
+            <section>
+              <Container>
                 <Creators>
                   <FlexList>
                     <label>Director</label>
@@ -169,13 +173,17 @@ const DetailMovie = () => {
                     <Name>{movie.Writer}</Name>
                   </FlexList>
                 </Creators>
-              </section>
-              <section>
+              </Container>
+            </section>
+            <section>
+              <Container>
                 <Plot>
                   <p>{movie.Plot}</p>
                 </Plot>
-              </section>
-              <section>
+              </Container>
+            </section>
+            <section>
+              <Container>
                 <FlexList style={{ justifyContent: "space-between" }}>
                   <ButtonBox>
                     <picture>
@@ -190,8 +198,8 @@ const DetailMovie = () => {
                     Share
                   </ButtonBox>
                 </FlexList>
-              </section>
-            </Container>
+              </Container>
+            </section>
           </Main>
         </React.Fragment>
       )}
@@ -247,16 +255,16 @@ const Title = styled.h1`
 
 const LeftPoster = styled.div`
   position: relative;
-  flex: 0 0 50%;
+  flex: 0 0 45%;
   max-width: 240px;
 
-  & > div {
-    position: ${props => (props.position ? props.position : "relative")};
+  > div {
+    position: absolute;
   }
 `;
 
 const RightPoster = styled.div`
-  flex: 0 0 50%;
+  flex: 0 0 55%;
   /* padding-left: 0.75rem; */
   padding-left: 4%;
 `;
@@ -375,6 +383,7 @@ const FlexList = styled.div`
 `;
 
 const TopSpace = styled.div`
+  position: relative !important;
   width: 100%;
   height: 0;
   margin-top: -100%;
@@ -403,6 +412,11 @@ const TopSection = styled.section`
 const Container = styled.div`
   margin-right: 5%;
   margin-left: 5%;
+
+  @media ${device.laptop} {
+    max-width: 1200px;
+    margin: auto;
+  }
 `;
 
 const Main = styled.main`
