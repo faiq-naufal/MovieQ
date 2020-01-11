@@ -45,7 +45,12 @@ const Container = styled.div`
   margin-left: 2.5%;
 
   @media ${device.laptop} {
-    max-width: 1200px;
+    max-width: 992px;
+    margin: auto;
+  }
+
+  @media ${device.laptopM} {
+    max-width: 1140px;
     margin: auto;
   }
 `;

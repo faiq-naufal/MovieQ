@@ -61,38 +61,45 @@ const DetailMovie = () => {
         <React.Fragment>
           <Header />
           <Main>
-            <TopSection>
-              <Container>
-                <FlexList>
-                  <LeftPoster>
-                    <PosterMovie poster={movie.Poster} title={movie.Title} />
-                  </LeftPoster>
-                  <RightPoster>
-                    <Title>{movie.Title}</Title>
-                    <FlexList wrap="true">
-                      <InfoList>
-                        <picture>
-                          <img width="14" src={calendarPng} alt="Logo" />
-                        </picture>
-                        {movie.Year}
-                      </InfoList>
-                      <InfoList>
-                        <picture>
-                          <img width="16" src={timePng} alt="Logo" />
-                        </picture>
-                        {movie.Runtime}
-                      </InfoList>
-                      <InfoList>
-                        <picture>
-                          <img width="16" src={infoPng} alt="Logo" />
-                        </picture>
-                        Rated {movie.Rated}
-                      </InfoList>
-                    </FlexList>
-                  </RightPoster>
-                </FlexList>
-              </Container>
-            </TopSection>
+            <section>
+              <TopPage>
+                <Container>
+                  <FlexList>
+                    <LeftPoster>
+                      <div style={{ position: "absolute", width: "100%" }}>
+                        <PosterMovie
+                          poster={movie.Poster}
+                          title={movie.Title}
+                        />
+                      </div>
+                    </LeftPoster>
+                    <RightPoster>
+                      <Title>{movie.Title}</Title>
+                      <FlexList wrap="true">
+                        <InfoList>
+                          <picture>
+                            <img width="14" src={calendarPng} alt="Logo" />
+                          </picture>
+                          {movie.Year}
+                        </InfoList>
+                        <InfoList>
+                          <picture>
+                            <img width="16" src={timePng} alt="Logo" />
+                          </picture>
+                          {movie.Runtime}
+                        </InfoList>
+                        <InfoList>
+                          <picture>
+                            <img width="16" src={infoPng} alt="Logo" />
+                          </picture>
+                          Rated {movie.Rated}
+                        </InfoList>
+                      </FlexList>
+                    </RightPoster>
+                  </FlexList>
+                </Container>
+              </TopPage>
+            </section>
             <section>
               <Container>
                 <FlexList>
@@ -109,7 +116,7 @@ const DetailMovie = () => {
                 </FlexList>
               </Container>
             </section>
-            <section>
+            <section style={{ paddingTop: 0 }}>
               <Container>
                 <FlexList style={{ maxWidth: "450px" }}>
                   {movie.Ratings.map((rating, index) => {
@@ -244,10 +251,10 @@ const GenreList = styled.div`
 
 const Title = styled.h1`
   color: #fff;
-  /* font-size: 1.15rem; */
   font-size: 5vw;
   font-weight: 500;
   letter-spacing: 0.5px;
+  margin-bottom: 0;
   @media ${device.tablet} {
     font-size: 2.5rem;
   }
@@ -257,14 +264,10 @@ const LeftPoster = styled.div`
   position: relative;
   flex: 0 0 45%;
   max-width: 240px;
-
-  > div {
-    position: absolute;
-  }
 `;
 
 const RightPoster = styled.div`
-  flex: 0 0 55%;
+  flex: 1 0 55%;
   /* padding-left: 0.75rem; */
   padding-left: 4%;
 `;
@@ -386,35 +389,35 @@ const TopSpace = styled.div`
   position: relative !important;
   width: 100%;
   height: 0;
-  margin-top: -100%;
+  margin-top: -140px;
   padding-bottom: 145%;
 `;
 
-const TopSection = styled.section`
-  position: relative;
-  /* min-height: 300px; */
-  min-height: 175px;
-  margin-bottom: 2.75vh;
-  &::before {
-    content: "";
-    position: absolute;
-    top: -125px;
-    left: -37.5%;
-    z-index: -1;
-    background: linear-gradient(to bottom, #ff6d5a, #ff4158);
-    box-shadow: 0 2px 12px 0 #ff6d5a;
-    width: 175%;
-    height: calc(100% + 140px);
-    border-radius: 50%;
-  }
+const TopPage = styled.div`
+  margin-top: -125px;
+  margin-left: -50%;
+  padding-top: 125px;
+  padding-left: 50%;
+  padding-right: 50%;
+  padding-bottom: 20px;
+  z-index: -1;
+  background: linear-gradient(to bottom, #ff6d5a, #ff4158);
+  box-shadow: 0 2px 12px 0 #ff6d5a;
+  width: 200%;
+  border-radius: 50%;
 `;
 
 const Container = styled.div`
-  margin-right: 5%;
-  margin-left: 5%;
+  margin-right: 2.5%;
+  margin-left: 2.5%;
 
   @media ${device.laptop} {
-    max-width: 1200px;
+    max-width: 992px;
+    margin: auto;
+  }
+
+  @media ${device.laptopM} {
+    max-width: 1140px;
     margin: auto;
   }
 `;
