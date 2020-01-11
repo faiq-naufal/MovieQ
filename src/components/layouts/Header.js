@@ -41,8 +41,8 @@ const Header = props => {
 export default Header;
 
 const Container = styled.div`
-  margin-right: 2.5%;
-  margin-left: 2.5%;
+  margin-right: 3%;
+  margin-left: 3%;
 
   @media ${device.laptop} {
     max-width: 992px;
@@ -59,7 +59,7 @@ const StyledHeader = styled.header`
   width: 100%;
   height: 70px;
   z-index: 1;
-  padding: 1rem;
+  padding: 1rem 0.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

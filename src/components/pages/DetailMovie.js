@@ -36,23 +36,6 @@ const DetailMovie = () => {
     getMovie();
   }, [endPoint]);
 
-  /*const TopInfo = styled.div`
-	position: relative;
-   &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: -1rem;
-    left: -37.5%;
-    z-index: -1;
-    background: linear-gradient(to bottom, #ff6d5a, #ff4158);
-    box-shadow: 0 2px 12px 0 #ff6d5a;
-    width: 175%;
-    height: 100%;
-    border-radius: 50%;
-  } 
-`;*/
-
   return (
     <Background>
       {loading ? (
@@ -61,17 +44,12 @@ const DetailMovie = () => {
         <React.Fragment>
           <Header />
           <Main>
-            <section>
+            <section style={{ padding: 0 }}>
               <TopPage>
                 <Container>
-                  <FlexList>
+                  <div>
                     <LeftPoster>
-                      <div style={{ position: "absolute", width: "100%" }}>
-                        <PosterMovie
-                          poster={movie.Poster}
-                          title={movie.Title}
-                        />
-                      </div>
+                      <PosterMovie poster={movie.Poster} title={movie.Title} />
                     </LeftPoster>
                     <RightPoster>
                       <Title>{movie.Title}</Title>
@@ -96,16 +74,13 @@ const DetailMovie = () => {
                         </InfoList>
                       </FlexList>
                     </RightPoster>
-                  </FlexList>
+                  </div>
                 </Container>
               </TopPage>
             </section>
             <section>
               <Container>
                 <FlexList>
-                  <LeftPoster>
-                    <TopSpace></TopSpace>
-                  </LeftPoster>
                   <RightPoster>
                     <FlexList wrap="true">
                       {movie.Genre.split(", ").map((genre, index) => (
@@ -116,7 +91,7 @@ const DetailMovie = () => {
                 </FlexList>
               </Container>
             </section>
-            <section style={{ paddingTop: 0 }}>
+            <section style={{ paddingTop: 0, clear: "both" }}>
               <Container>
                 <FlexList style={{ maxWidth: "450px" }}>
                   {movie.Ratings.map((rating, index) => {
@@ -240,10 +215,10 @@ const GenreList = styled.div`
   background-color: #a4c12d;
   color: #fff;
   border-radius: 20px;
-  padding: 6px 12px;
+  padding: 5px 12px;
   letter-spacing: 0.3px;
   line-height: normal;
-  font-size: 11px;
+  font-size: 12px;
   margin-right: 5px;
   margin-bottom: 10px;
   text-align: center;
@@ -261,15 +236,18 @@ const Title = styled.h1`
 `;
 
 const LeftPoster = styled.div`
-  position: relative;
-  flex: 0 0 45%;
+  width: 40%;
   max-width: 240px;
+  > div {
+    width: 100%;
+    float: left;
+    margin-bottom: 2rem;
+    margin-right: 3vw;
+  }
 `;
 
 const RightPoster = styled.div`
-  flex: 1 0 55%;
-  /* padding-left: 0.75rem; */
-  padding-left: 4%;
+  width: auto;
 `;
 
 const BoxShadow = styled.div`
@@ -277,9 +255,13 @@ const BoxShadow = styled.div`
   border-radius: 5px;
   padding: 0.875rem;
   color: #666;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   letter-spacing: 0.3px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+
+  @media ${device.tablet} {
+    font-size: 0.875rem;
+  }
 `;
 
 const Actors = styled(BoxShadow)`
@@ -290,6 +272,7 @@ const Actors = styled(BoxShadow)`
   font-weight: 700;
   color: #a78a4e;
   text-align: center;
+  letter-spacing: 0.3px;
   @media ${device.tablet} {
     padding: 1.5rem 1rem;
   }
@@ -302,6 +285,9 @@ const Name = styled.div`
 
 const Creators = styled(BoxShadow)`
   color: #666;
+  letter-spacing: 0.3px;
+  line-height: 20px;
+
   @media ${device.tablet} {
     padding: 1.5rem 1rem;
   }
@@ -319,7 +305,8 @@ const Creators = styled(BoxShadow)`
 const Plot = styled(BoxShadow)`
   color: #666;
   font-weight: 400;
-  line-height: 18px;
+  line-height: 20px;
+  letter-spacing: 0.4px;
   @media ${device.tablet} {
     padding: 1.5rem 1rem;
   }
@@ -372,9 +359,13 @@ const RatingList = styled.div`
 
   > strong {
     margin-left: 0.5rem;
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     color: #666;
     letter-spacing: 0.3px;
+
+    @media ${device.tablet} {
+      font-size: 0.8125rem;
+    }
   }
 `;
 
@@ -383,14 +374,6 @@ const FlexList = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: ${props => (props.wrap ? "wrap" : "nowrap")};
-`;
-
-const TopSpace = styled.div`
-  position: relative !important;
-  width: 100%;
-  height: 0;
-  margin-top: -140px;
-  padding-bottom: 145%;
 `;
 
 const TopPage = styled.div`
@@ -408,8 +391,8 @@ const TopPage = styled.div`
 `;
 
 const Container = styled.div`
-  margin-right: 2.5%;
-  margin-left: 2.5%;
+  margin-right: 5.5%;
+  margin-left: 5.5%;
 
   @media ${device.laptop} {
     max-width: 992px;
@@ -430,7 +413,6 @@ const Main = styled.main`
 
 const Background = styled.div`
   background-color: #f8f8f8;
-  min-width: 100vw;
   min-height: 100%;
   opacity: 0.99;
 `;
