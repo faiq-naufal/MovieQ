@@ -58,19 +58,19 @@ const DetailMovie = () => {
                           <picture>
                             <img width="14" src={calendarPng} alt="Logo" />
                           </picture>
-                          {movie.Year}
+                          {movie.Year !== "N/A" ? movie.Year : "Unknown"}
                         </InfoList>
                         <InfoList>
                           <picture>
                             <img width="16" src={timePng} alt="Logo" />
                           </picture>
-                          {movie.Runtime}
+                          {movie.Runtime !== "N/A" ? movie.Runtime : "Unknown"}
                         </InfoList>
                         <InfoList>
                           <picture>
                             <img width="16" src={infoPng} alt="Logo" />
                           </picture>
-                          Rated {movie.Rated}
+                          {movie.Rated}
                         </InfoList>
                       </FlexList>
                     </RightPoster>
@@ -132,7 +132,11 @@ const DetailMovie = () => {
                           </RatingList>
                         );
                       default:
-                        return null;
+                        return (
+                          <RatingList>
+                            <strong>There is no available rating</strong>
+                          </RatingList>
+                        );
                     }
                   })}
                 </FlexList>
@@ -140,7 +144,11 @@ const DetailMovie = () => {
             </section>
             <section>
               <Container>
-                <Actors>{movie.Actors}</Actors>
+                <Actors>
+                  {movie.Actors !== "N/A"
+                    ? movie.Actors
+                    : "Unknown actors / actresses"}
+                </Actors>
               </Container>
             </section>
             <section>
@@ -148,11 +156,15 @@ const DetailMovie = () => {
                 <Creators>
                   <FlexList>
                     <label>Director</label>
-                    <Name>{movie.Director}</Name>
+                    <Name>
+                      {movie.Director !== "N/A" ? movie.Director : "Unknown"}
+                    </Name>
                   </FlexList>
                   <FlexList>
                     <label>Writer</label>
-                    <Name>{movie.Writer}</Name>
+                    <Name>
+                      {movie.Writer !== "N/A" ? movie.Writer : "Unknown"}
+                    </Name>
                   </FlexList>
                 </Creators>
               </Container>
@@ -160,7 +172,11 @@ const DetailMovie = () => {
             <section>
               <Container>
                 <Plot>
-                  <p>{movie.Plot}</p>
+                  <p>
+                    {movie.Plot !== "N/A"
+                      ? movie.Plot
+                      : "No synopsis available"}
+                  </p>
                 </Plot>
               </Container>
             </section>
@@ -218,10 +234,13 @@ const GenreList = styled.div`
   padding: 5px 12px;
   letter-spacing: 0.3px;
   line-height: normal;
-  font-size: 12px;
+  font-size: 11px;
   margin-right: 5px;
   margin-bottom: 10px;
   text-align: center;
+  @media ${device.tablet} {
+    font-size: 12px;
+  }
 `;
 
 const Title = styled.h1`
@@ -229,9 +248,15 @@ const Title = styled.h1`
   font-size: 5vw;
   font-weight: 500;
   letter-spacing: 0.5px;
-  margin-bottom: 0;
+  margin: 0;
   @media ${device.tablet} {
     font-size: 2.5rem;
+  }
+
+  &::before {
+    content: " ";
+    display: block;
+    height: 10px;
   }
 `;
 
