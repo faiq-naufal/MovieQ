@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import copy from "clipboard-copy";
+import SnackBar from "@material-ui/core/Snackbar";
+import Fade from "@material-ui/core/Fade";
 import device from "../../helpers/device";
 import Header from "../layouts/Header";
 import PosterMovie from "./PosterMovie";
@@ -22,6 +25,8 @@ const DetailMovie = () => {
 
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(true);
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [messageSnackbar, setMessageSnackbar] = useState("");
 
   useEffect(() => {
     const getMovie = async () => {
@@ -30,11 +35,25 @@ const DetailMovie = () => {
 
       setMovie(response.data);
       setLoading(false);
-      console.log(response.data);
     };
 
     getMovie();
   }, [endPoint]);
+
+  const handleCopy = () => {
+    const current_url = window.location.href;
+
+    const response = copy(current_url);
+    response
+      .then(data => {
+        setMessageSnackbar("Link copied successfully");
+        setOpenSnackBar(true);
+      })
+      .catch(error => {
+        setMessageSnackbar("Failed to copy link");
+        setOpenSnackBar(true);
+      });
+  };
 
   return (
     <Background>
@@ -70,7 +89,9 @@ const DetailMovie = () => {
                           <picture>
                             <img width="16" src={infoPng} alt="Logo" />
                           </picture>
-                          {movie.Rated}
+                          {movie.Rated === "N/A" || movie.Rated === "Not Rated"
+                            ? "Not Rated"
+                            : `Rated ${movie.Rated}`}
                         </InfoList>
                       </FlexList>
                     </RightPoster>
@@ -189,7 +210,7 @@ const DetailMovie = () => {
                     </picture>
                     Save
                   </ButtonBox>
-                  <ButtonBox>
+                  <ButtonBox onClick={handleCopy}>
                     <picture>
                       <img width="15" src={sharePng} alt="Share" />
                     </picture>
@@ -199,6 +220,20 @@ const DetailMovie = () => {
               </Container>
             </section>
           </Main>
+          <SnackBar
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right"
+            }}
+            open={openSnackBar}
+            onClose={() => {
+              setOpenSnackBar(false);
+              setMessageSnackbar("");
+            }}
+            TransitionComponent={Fade}
+            autoHideDuration={3500}
+            message={messageSnackbar}
+          />
         </React.Fragment>
       )}
     </Background>
