@@ -5,7 +5,9 @@ import styled from "styled-components";
 import copy from "clipboard-copy";
 import SnackBar from "@material-ui/core/Snackbar";
 import Fade from "@material-ui/core/Fade";
-import device from "../../helpers/device";
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+import device, { size } from "../../helpers/device";
 import Header from "../layouts/Header";
 import PosterMovie from "./PosterMovie";
 import calendarPng from "../../assets/img/calendar.png";
@@ -66,7 +68,7 @@ const DetailMovie = () => {
             <section style={{ padding: 0 }}>
               <TopPage>
                 <Container>
-                  <div>
+                  <div style={{ paddingTop: "5%" }}>
                     <LeftPoster>
                       <PosterMovie poster={movie.Poster} title={movie.Title} />
                     </LeftPoster>
@@ -204,13 +206,13 @@ const DetailMovie = () => {
             <section>
               <Container>
                 <FlexList style={{ justifyContent: "space-between" }}>
-                  <ButtonBox>
+                  <ButtonBox variant="contained">
                     <picture>
                       <img width="13" src={bookmarkPng} alt="Save" />
                     </picture>
                     Save
                   </ButtonBox>
-                  <ButtonBox onClick={handleCopy}>
+                  <ButtonBox variant="contained" onClick={handleCopy}>
                     <picture>
                       <img width="15" src={sharePng} alt="Share" />
                     </picture>
@@ -231,7 +233,7 @@ const DetailMovie = () => {
               setMessageSnackbar("");
             }}
             TransitionComponent={Fade}
-            autoHideDuration={3500}
+            autoHideDuration={3000}
             message={messageSnackbar}
           />
         </React.Fragment>
@@ -372,22 +374,36 @@ const Plot = styled(BoxShadow)`
   }
 `;
 
-const ButtonBox = styled(BoxShadow)`
-  flex: 0 0 40%;
-  max-width: 250px;
-  text-align: center;
-  font-weight: 400;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  figure {
-    display: flex;
-    align-items: center;
+const ButtonBox = withStyles(theme => ({
+  root: {
+    backgroundColor: "#fff",
+    borderRadius: "5px",
+    padding: "0.5rem",
+    color: "#666",
+    fontFamily: "Ubuntu, sans-serif",
+    fontSize: "0.75rem",
+    [theme.breakpoints.up(size.tablet)]: {
+      fontSize: "0.875rem"
+    },
+    textTransform: "initial",
+    letterSpacing: "0.3px",
+    boxShadow: "0 2px 4px 0 rgba(0, 0, 0, 0.1)",
+    flex: " 0 0 40%",
+    maxWidth: "250px",
+    textAlign: "center",
+    fontWeight: 400,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "& picture": {
+      display: "flex",
+      alignItems: "center"
+    },
+    "& img": {
+      marginRight: "0.5rem"
+    }
   }
-  img {
-    margin-right: 0.75rem;
-  }
-`;
+}))(Button);
 
 const MetaCritic = styled.picture`
   > img {
