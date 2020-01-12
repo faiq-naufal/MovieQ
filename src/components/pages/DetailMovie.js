@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import device, { size } from "../../helpers/device";
 import Header from "../layouts/Header";
+import Sidebar from "../layouts/Sidebar";
 import PosterMovie from "./PosterMovie";
 import calendarPng from "../../assets/img/calendar.png";
 import infoPng from "../../assets/img/info.png";
@@ -28,6 +29,7 @@ const DetailMovie = () => {
   const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(true);
   const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(false);
   const [messageSnackbar, setMessageSnackbar] = useState("");
 
   useEffect(() => {
@@ -41,6 +43,10 @@ const DetailMovie = () => {
 
     getMovie();
   }, [endPoint]);
+
+  const handleOpenSidebar = () => {
+    setOpenSidebar(!openSidebar);
+  };
 
   const handleCopy = () => {
     const current_url = window.location.href;
@@ -63,7 +69,11 @@ const DetailMovie = () => {
         <div>Loading...</div>
       ) : (
         <React.Fragment>
-          <Header />
+          <Header handleOpenSidebar={handleOpenSidebar} />
+          <Sidebar
+            openSidebar={openSidebar}
+            handleOpenSidebar={handleOpenSidebar}
+          />
           <Main>
             <section style={{ padding: 0 }}>
               <TopPage>

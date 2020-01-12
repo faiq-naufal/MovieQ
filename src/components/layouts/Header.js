@@ -32,6 +32,7 @@ const Header = props => {
           <Toggle
             type="button"
             style={{ display: toggleSearch ? "none" : "inline-block" }}
+            onClick={() => props.handleOpenSidebar()}
           >
             <picture>
               <img src={menuBarPng} width="20" alt="Menu" />
