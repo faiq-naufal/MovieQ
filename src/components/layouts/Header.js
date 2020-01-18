@@ -8,7 +8,7 @@ import searchGreyPng from "../../assets/img/search-grey.png";
 import logoHeaderWebp from "../../assets/img/logo-header-white.webp";
 import logoHeaderPng from "../../assets/img/logo-header-white.png";
 
-const Header = props => {
+const Header = ({ handleOpenSidebar }) => {
   const [query, setQuery] = useState("");
   const [toggleSearch, setToggleSearch] = useState(false);
 
@@ -32,7 +32,7 @@ const Header = props => {
           <Toggle
             type="button"
             style={{ display: toggleSearch ? "none" : "inline-block" }}
-            onClick={() => props.handleOpenSidebar()}
+            onClick={() => handleOpenSidebar()}
           >
             <picture>
               <img src={menuBarPng} width="20" alt="Menu" />

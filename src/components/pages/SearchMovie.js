@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import Helmet from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import styled from "styled-components";
 import device from "../../helpers/device";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
-import PosterMovie from "./PosterMovie";
+import ContentLoader from "react-content-loader";
+import PosterMovieLoader from "../loader/PosterMovieLoader";
+import PosterMovie from "../layouts/PosterMovie";
 
 const SearchMovie = props => {
   const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
   const { query } = useParams();
   const endPoint = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`;
-
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getMovie = async () => {
-      setLoading(true);
+      setIsLoading(true);
       const response = await axios.get(endPoint);
 
       setMovies(response.data.Search);
-      setLoading(false);
+      setIsLoading(false);
     };
 
     getMovie();
@@ -37,40 +38,62 @@ const SearchMovie = props => {
       <Helmet>
         <title>{seo.title}</title>
       </Helmet>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <>
-          <Gradient>
-            <Header />
-          </Gradient>
-          <Container>
-            <SearchResult>
-              <h1>
-                Search results for <strong>"{query}"</strong>
-              </h1>
-              {movies ? (
-                <ListMovie>
-                  {movies.map(movie => (
-                    <MovieCard key={movie.imdbID}>
-                      <WrapperLink to={`/movie/${movie.imdbID}`}>
-                        <PosterMovie
-                          poster={movie.Poster}
-                          title={movie.Title}
-                        />
-                        <div style={{ margin: "1.5rem 0" }}>{movie.Title}</div>
-                      </WrapperLink>
-                    </MovieCard>
-                  ))}
-                </ListMovie>
-              ) : (
-                "No Movies Found"
-              )}
-            </SearchResult>
-          </Container>
-          <Footer />
-        </>
-      )}
+      <Gradient>
+        <Header />
+      </Gradient>
+      <Container>
+        <SearchResult>
+          <h1>
+            Search results for <strong>"{query}"</strong>
+          </h1>
+          {isLoading ? (
+            <ListMovie>
+              {Array.from(Array(10), (item, index) => (
+                <MovieCard key={index}>
+                  <PosterMovieLoader />
+                  <MovieLabel>
+                    <ContentLoader
+                      style={{ width: "100%", height: "60px" }}
+                      viewBox="0 0 100 60"
+                    >
+                      <rect
+                        x="0"
+                        y="10"
+                        rx="3"
+                        ry="3"
+                        width="100%"
+                        height="15px"
+                      />
+                      <rect
+                        x="0"
+                        y="35"
+                        rx="3"
+                        ry="3"
+                        width="35%"
+                        height="15px"
+                      />
+                    </ContentLoader>
+                  </MovieLabel>
+                </MovieCard>
+              ))}
+            </ListMovie>
+          ) : movies ? (
+            <ListMovie>
+              {movies.map(movie => (
+                <MovieCard key={movie.imdbID}>
+                  <WrapperLink to={`/movie/${movie.imdbID}`}>
+                    <PosterMovie poster={movie.Poster} title={movie.Title} />
+                    <MovieLabel>{movie.Title}</MovieLabel>
+                  </WrapperLink>
+                </MovieCard>
+              ))}
+            </ListMovie>
+          ) : (
+            <div>No Movies Found</div>
+          )}
+        </SearchResult>
+      </Container>
+      <Footer />
     </>
   );
 };
@@ -141,6 +164,11 @@ const MovieCard = styled.li`
   }
 `;
 
+const MovieLabel = styled.div`
+  margin: 1rem 0 2rem 0;
+  line-height: 18px;
+`;
+
 const WrapperLink = styled(Link)`
   width: 100%;
   display: inline-block;
@@ -152,5 +180,4 @@ const WrapperLink = styled(Link)`
   &:hover {
     text-decoration: none;
   }
-  /* padding-top: 56.25%; */
 `;

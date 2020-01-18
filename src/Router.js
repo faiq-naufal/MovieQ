@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-import Helmet from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 // const Home = lazy(() => import("./components/pages/Home"));
 // const DetailMovie = lazy(() => import("./components/pages/DetailMovie"));
@@ -38,6 +38,12 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100%;
     overflow-x: hidden;
   }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 `;
 
 const Router = () => {
@@ -47,25 +53,27 @@ const Router = () => {
   };
   return (
     <BrowserRouter>
-      <Helmet>
-        <meta name="description" content={seo.description} />
-        <meta name="keywords" content={seo.keywords} />
-      </Helmet>
       <GlobalStyle />
-      <Switch>
-        <Route exact path="/" render={routeProps => <Home />}></Route>
-        <Route
-          exact
-          path="/search/:query"
-          render={routeProps => <SearchMovie />}
-        ></Route>
-        <Route
-          exact
-          path="/movie/:id"
-          render={routeProps => <DetailMovie />}
-        ></Route>
-        <Route render={() => <PageNotFound />}></Route>
-      </Switch>
+      <HelmetProvider>
+        <Helmet>
+          <meta name="description" content={seo.description} />
+          <meta name="keywords" content={seo.keywords} />
+        </Helmet>
+        <Switch>
+          <Route exact path="/" render={routeProps => <Home />}></Route>
+          <Route
+            exact
+            path="/search/:query"
+            render={routeProps => <SearchMovie />}
+          ></Route>
+          <Route
+            exact
+            path="/movie/:id"
+            render={routeProps => <DetailMovie />}
+          ></Route>
+          <Route render={() => <PageNotFound />}></Route>
+        </Switch>
+      </HelmetProvider>
     </BrowserRouter>
   );
 };

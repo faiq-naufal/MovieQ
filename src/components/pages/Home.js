@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import logoPng from "../../assets/img/logo-white.png";
 import logoWebp from "../../assets/img/logo-white.webp";
 import styled from "styled-components";
-import Helmet from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const Home = props => {
   const [title, setTitle] = useState("");

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Helmet from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import styled from "styled-components";
 import copy from "clipboard-copy";
@@ -12,7 +12,7 @@ import device, { size } from "../../helpers/device";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
 import Sidebar from "../layouts/Sidebar";
-import PosterMovie from "./PosterMovie";
+import PosterMovie from "../layouts/PosterMovie";
 import calendarPng from "../../assets/img/calendar.png";
 import infoPng from "../../assets/img/info.png";
 import timePng from "../../assets/img/regular-clock.png";
