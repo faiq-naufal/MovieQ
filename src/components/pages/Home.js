@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import logoPng from "../../assets/img/logo-white.png";
 import logoWebp from "../../assets/img/logo-white.webp";
 import styled from "styled-components";
+import Helmet from "react-helmet";
 
 const Home = props => {
   const [title, setTitle] = useState("");
@@ -16,26 +17,35 @@ const Home = props => {
     }
   };
 
+  const seo = {
+    title: "Home - Search Your Movies Here | MovieQ"
+  };
+
   return (
-    <Background>
-      <Container>
-        <picture>
-          <source srcSet={logoWebp} type="image/webp" />
-          <img src={logoPng} alt="Logo" />
-        </picture>
-        <Form onSubmit={handleSubmit}>
-          <InputSearch
-            type="text"
-            name="title"
-            id="title"
-            placeholder="Search Movie Title"
-            value={title}
-            onChange={event => setTitle(event.target.value)}
-          />
-          <InputButton type="submit">SEARCH</InputButton>
-        </Form>
-      </Container>
-    </Background>
+    <>
+      <Helmet>
+        <title>{seo.title}</title>
+      </Helmet>
+      <Background>
+        <Container>
+          <picture>
+            <source srcSet={logoWebp} type="image/webp" />
+            <img src={logoPng} alt="Logo" />
+          </picture>
+          <Form onSubmit={handleSubmit}>
+            <InputSearch
+              type="text"
+              name="title"
+              id="title"
+              placeholder="Search Movie Title"
+              value={title}
+              onChange={event => setTitle(event.target.value)}
+            />
+            <InputButton type="submit">SEARCH</InputButton>
+          </Form>
+        </Container>
+      </Background>
+    </>
   );
 };
 

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import Helmet from "react-helmet";
 import axios from "axios";
 import styled from "styled-components";
 import device from "../../helpers/device";
 import Header from "../layouts/Header";
+import Footer from "../layouts/Footer";
 import PosterMovie from "./PosterMovie";
 
 const SearchMovie = props => {
@@ -26,8 +28,15 @@ const SearchMovie = props => {
     getMovie();
   }, [endPoint]);
 
+  const seo = {
+    title: `Search results for ${query} | MovieQ`
+  };
+
   return (
     <>
+      <Helmet>
+        <title>{seo.title}</title>
+      </Helmet>
       {loading ? (
         <div>Loading...</div>
       ) : (
@@ -59,6 +68,7 @@ const SearchMovie = props => {
               )}
             </SearchResult>
           </Container>
+          <Footer />
         </>
       )}
     </>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Helmet from "react-helmet";
 import axios from "axios";
 import styled from "styled-components";
 import copy from "clipboard-copy";
@@ -9,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import device, { size } from "../../helpers/device";
 import Header from "../layouts/Header";
+import Footer from "../layouts/Footer";
 import Sidebar from "../layouts/Sidebar";
 import PosterMovie from "./PosterMovie";
 import calendarPng from "../../assets/img/calendar.png";
@@ -63,192 +65,208 @@ const DetailMovie = () => {
       });
   };
 
+  const seo = {
+    title: `${movie.Title} | MovieQ`
+  };
+
   return (
-    <Background>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <React.Fragment>
-          <Header handleOpenSidebar={handleOpenSidebar} />
-          <Sidebar
-            openSidebar={openSidebar}
-            handleOpenSidebar={handleOpenSidebar}
-          />
-          <Main>
-            <section style={{ padding: 0 }}>
-              <TopPage>
+    <>
+      <Helmet>
+        <title>{seo.title}</title>
+      </Helmet>
+      <Background>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <>
+            <Header handleOpenSidebar={handleOpenSidebar} />
+            <Sidebar
+              openSidebar={openSidebar}
+              handleOpenSidebar={handleOpenSidebar}
+            />
+            <Main>
+              <section style={{ padding: 0 }}>
+                <TopPage>
+                  <Container>
+                    <div style={{ paddingTop: "5%" }}>
+                      <LeftPoster>
+                        <PosterMovie
+                          poster={movie.Poster}
+                          title={movie.Title}
+                        />
+                      </LeftPoster>
+                      <RightPoster>
+                        <Title>{movie.Title}</Title>
+                        <FlexList wrap="true">
+                          <InfoList>
+                            <picture>
+                              <img width="14" src={calendarPng} alt="Logo" />
+                            </picture>
+                            {movie.Year !== "N/A" ? movie.Year : "Unknown"}
+                          </InfoList>
+                          <InfoList>
+                            <picture>
+                              <img width="16" src={timePng} alt="Logo" />
+                            </picture>
+                            {movie.Runtime !== "N/A"
+                              ? movie.Runtime
+                              : "Unknown"}
+                          </InfoList>
+                          <InfoList>
+                            <picture>
+                              <img width="16" src={infoPng} alt="Logo" />
+                            </picture>
+                            {movie.Rated === "N/A" ||
+                            movie.Rated === "Not Rated"
+                              ? "Not Rated"
+                              : `Rated ${movie.Rated}`}
+                          </InfoList>
+                        </FlexList>
+                      </RightPoster>
+                    </div>
+                  </Container>
+                </TopPage>
+              </section>
+              <section>
                 <Container>
-                  <div style={{ paddingTop: "5%" }}>
-                    <LeftPoster>
-                      <PosterMovie poster={movie.Poster} title={movie.Title} />
-                    </LeftPoster>
+                  <FlexList>
                     <RightPoster>
-                      <Title>{movie.Title}</Title>
                       <FlexList wrap="true">
-                        <InfoList>
-                          <picture>
-                            <img width="14" src={calendarPng} alt="Logo" />
-                          </picture>
-                          {movie.Year !== "N/A" ? movie.Year : "Unknown"}
-                        </InfoList>
-                        <InfoList>
-                          <picture>
-                            <img width="16" src={timePng} alt="Logo" />
-                          </picture>
-                          {movie.Runtime !== "N/A" ? movie.Runtime : "Unknown"}
-                        </InfoList>
-                        <InfoList>
-                          <picture>
-                            <img width="16" src={infoPng} alt="Logo" />
-                          </picture>
-                          {movie.Rated === "N/A" || movie.Rated === "Not Rated"
-                            ? "Not Rated"
-                            : `Rated ${movie.Rated}`}
-                        </InfoList>
+                        {movie.Genre.split(", ").map((genre, index) => (
+                          <GenreList key={index}>{genre}</GenreList>
+                        ))}
                       </FlexList>
                     </RightPoster>
-                  </div>
+                  </FlexList>
                 </Container>
-              </TopPage>
-            </section>
-            <section>
-              <Container>
-                <FlexList>
-                  <RightPoster>
-                    <FlexList wrap="true">
-                      {movie.Genre.split(", ").map((genre, index) => (
-                        <GenreList key={index}>{genre}</GenreList>
-                      ))}
+              </section>
+              <section style={{ paddingTop: 0, clear: "both" }}>
+                <Container>
+                  <FlexList style={{ maxWidth: "450px" }}>
+                    {movie.Ratings.map((rating, index) => {
+                      switch (rating.Source) {
+                        case "Internet Movie Database":
+                          return (
+                            <RatingList key={index}>
+                              <Imdb>
+                                <img src={imdbPng} alt="imDB" />
+                              </Imdb>
+                              <strong>{rating.Value}</strong>
+                            </RatingList>
+                          );
+                        case "Rotten Tomatoes":
+                          return (
+                            <RatingList key={index}>
+                              <RottenTomatoes>
+                                <img
+                                  width="24"
+                                  src={rottenTomatoesPng}
+                                  alt="Rotten Tomatoes"
+                                />
+                              </RottenTomatoes>
+                              <strong>{rating.Value}</strong>
+                            </RatingList>
+                          );
+                        case "Metacritic":
+                          return (
+                            <RatingList key={index}>
+                              <MetaCritic>
+                                <img
+                                  width="24"
+                                  src={metacriticPng}
+                                  alt="Meta Critic"
+                                />
+                              </MetaCritic>
+                              <strong>{rating.Value}</strong>
+                            </RatingList>
+                          );
+                        default:
+                          return (
+                            <RatingList>
+                              <strong>There is no available rating</strong>
+                            </RatingList>
+                          );
+                      }
+                    })}
+                  </FlexList>
+                </Container>
+              </section>
+              <section>
+                <Container>
+                  <Actors>
+                    {movie.Actors !== "N/A"
+                      ? movie.Actors
+                      : "Unknown actors / actresses"}
+                  </Actors>
+                </Container>
+              </section>
+              <section>
+                <Container>
+                  <Creators>
+                    <FlexList>
+                      <label>Director</label>
+                      <Name>
+                        {movie.Director !== "N/A" ? movie.Director : "Unknown"}
+                      </Name>
                     </FlexList>
-                  </RightPoster>
-                </FlexList>
-              </Container>
-            </section>
-            <section style={{ paddingTop: 0, clear: "both" }}>
-              <Container>
-                <FlexList style={{ maxWidth: "450px" }}>
-                  {movie.Ratings.map((rating, index) => {
-                    switch (rating.Source) {
-                      case "Internet Movie Database":
-                        return (
-                          <RatingList key={index}>
-                            <Imdb>
-                              <img src={imdbPng} alt="imDB" />
-                            </Imdb>
-                            <strong>{rating.Value}</strong>
-                          </RatingList>
-                        );
-                      case "Rotten Tomatoes":
-                        return (
-                          <RatingList key={index}>
-                            <RottenTomatoes>
-                              <img
-                                width="24"
-                                src={rottenTomatoesPng}
-                                alt="Rotten Tomatoes"
-                              />
-                            </RottenTomatoes>
-                            <strong>{rating.Value}</strong>
-                          </RatingList>
-                        );
-                      case "Metacritic":
-                        return (
-                          <RatingList key={index}>
-                            <MetaCritic>
-                              <img
-                                width="24"
-                                src={metacriticPng}
-                                alt="Meta Critic"
-                              />
-                            </MetaCritic>
-                            <strong>{rating.Value}</strong>
-                          </RatingList>
-                        );
-                      default:
-                        return (
-                          <RatingList>
-                            <strong>There is no available rating</strong>
-                          </RatingList>
-                        );
-                    }
-                  })}
-                </FlexList>
-              </Container>
-            </section>
-            <section>
-              <Container>
-                <Actors>
-                  {movie.Actors !== "N/A"
-                    ? movie.Actors
-                    : "Unknown actors / actresses"}
-                </Actors>
-              </Container>
-            </section>
-            <section>
-              <Container>
-                <Creators>
-                  <FlexList>
-                    <label>Director</label>
-                    <Name>
-                      {movie.Director !== "N/A" ? movie.Director : "Unknown"}
-                    </Name>
+                    <FlexList>
+                      <label>Writer</label>
+                      <Name>
+                        {movie.Writer !== "N/A" ? movie.Writer : "Unknown"}
+                      </Name>
+                    </FlexList>
+                  </Creators>
+                </Container>
+              </section>
+              <section>
+                <Container>
+                  <Plot>
+                    <p>
+                      {movie.Plot !== "N/A"
+                        ? movie.Plot
+                        : "No synopsis available"}
+                    </p>
+                  </Plot>
+                </Container>
+              </section>
+              <section>
+                <Container>
+                  <FlexList style={{ justifyContent: "space-between" }}>
+                    <ButtonBox variant="contained">
+                      <picture>
+                        <img width="13" src={bookmarkPng} alt="Save" />
+                      </picture>
+                      Save
+                    </ButtonBox>
+                    <ButtonBox variant="contained" onClick={handleCopy}>
+                      <picture>
+                        <img width="15" src={sharePng} alt="Share" />
+                      </picture>
+                      Share
+                    </ButtonBox>
                   </FlexList>
-                  <FlexList>
-                    <label>Writer</label>
-                    <Name>
-                      {movie.Writer !== "N/A" ? movie.Writer : "Unknown"}
-                    </Name>
-                  </FlexList>
-                </Creators>
-              </Container>
-            </section>
-            <section>
-              <Container>
-                <Plot>
-                  <p>
-                    {movie.Plot !== "N/A"
-                      ? movie.Plot
-                      : "No synopsis available"}
-                  </p>
-                </Plot>
-              </Container>
-            </section>
-            <section>
-              <Container>
-                <FlexList style={{ justifyContent: "space-between" }}>
-                  <ButtonBox variant="contained">
-                    <picture>
-                      <img width="13" src={bookmarkPng} alt="Save" />
-                    </picture>
-                    Save
-                  </ButtonBox>
-                  <ButtonBox variant="contained" onClick={handleCopy}>
-                    <picture>
-                      <img width="15" src={sharePng} alt="Share" />
-                    </picture>
-                    Share
-                  </ButtonBox>
-                </FlexList>
-              </Container>
-            </section>
-          </Main>
-          <SnackBar
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right"
-            }}
-            open={openSnackBar}
-            onClose={() => {
-              setOpenSnackBar(false);
-              setMessageSnackbar("");
-            }}
-            TransitionComponent={Fade}
-            autoHideDuration={3000}
-            message={messageSnackbar}
-          />
-        </React.Fragment>
-      )}
-    </Background>
+                </Container>
+              </section>
+            </Main>
+            <SnackBar
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right"
+              }}
+              open={openSnackBar}
+              onClose={() => {
+                setOpenSnackBar(false);
+                setMessageSnackbar("");
+              }}
+              TransitionComponent={Fade}
+              autoHideDuration={3000}
+              message={messageSnackbar}
+            />
+            <Footer />
+          </>
+        )}
+      </Background>
+    </>
   );
 };
 
