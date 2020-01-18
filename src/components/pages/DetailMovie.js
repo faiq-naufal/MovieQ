@@ -98,11 +98,11 @@ const DetailMovie = () => {
                     {isLoading ? (
                       <ContentLoaded
                         style={{
-                          maxWidth: "400px",
-                          width: "100%",
+                          width: "50%",
+                          maxWidth: "450px",
                           height: "80px"
                         }}
-                        viewBox="0 0 400 80"
+                        viewBox="0 0 450 80"
                       >
                         <rect
                           x="0"
@@ -118,7 +118,7 @@ const DetailMovie = () => {
                           rx="2"
                           ry="2"
                           width="30%"
-                          height="15px"
+                          height="14px"
                         />
                         <rect
                           x="35%"
@@ -126,7 +126,7 @@ const DetailMovie = () => {
                           rx="2"
                           ry="2"
                           width="35%"
-                          height="15px"
+                          height="14px"
                         />
                         <rect
                           x="75%"
@@ -134,7 +134,7 @@ const DetailMovie = () => {
                           rx="2"
                           ry="2"
                           width="35%"
-                          height="15px"
+                          height="14px"
                         />
                       </ContentLoaded>
                     ) : (
