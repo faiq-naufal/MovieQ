@@ -38,12 +38,6 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100%;
     overflow-x: hidden;
   }
-
-  #root {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
 `;
 
 const Router = () => {

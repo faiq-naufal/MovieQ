@@ -34,7 +34,7 @@ const SearchMovie = props => {
   };
 
   return (
-    <>
+    <WrapperAll>
       <Helmet>
         <title>{seo.title}</title>
       </Helmet>
@@ -94,11 +94,18 @@ const SearchMovie = props => {
         </SearchResult>
       </Container>
       <Footer />
-    </>
+    </WrapperAll>
   );
 };
 
 export default SearchMovie;
+
+const WrapperAll = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+`;
 
 const Gradient = styled.div`
   position: relative;

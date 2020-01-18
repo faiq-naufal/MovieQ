@@ -70,7 +70,7 @@ const DetailMovie = () => {
   };
 
   return (
-    <>
+    <WrapperAll>
       <Helmet>
         <title>{seo.title}</title>
       </Helmet>
@@ -266,7 +266,7 @@ const DetailMovie = () => {
           </>
         )}
       </Background>
-    </>
+    </WrapperAll>
   );
 };
 
@@ -519,4 +519,11 @@ const Background = styled.div`
   background-color: #f8f8f8;
   min-height: 100%;
   opacity: 0.99;
+`;
+
+const WrapperAll = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 `;
