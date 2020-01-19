@@ -42,7 +42,7 @@ const DetailMovie = () => {
       const response = await axios.get(endPoint);
 
       setMovie(response.data);
-      // setIsLoading(false);
+      setIsLoading(false);
     };
 
     getMovie();
