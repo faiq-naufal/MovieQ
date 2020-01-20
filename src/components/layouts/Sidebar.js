@@ -8,9 +8,9 @@ import HomeIcon from "@material-ui/icons/Home";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Sidebar = ({ openSidebar, handleOpenSidebar }) => {
+const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   return (
-    <Drawer open={openSidebar} onClose={() => handleOpenSidebar()}>
+    <Drawer open={isSidebarOpen} onClose={() => toggleSidebar()}>
       <List style={{ width: 250 }}>
         <ListItemWrapper>
           <ListItem component={Link} to="/">

@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled, { css } from "styled-components";
 import device from "../../helpers/device";
+import useToggle from "../hooks/useToggle";
 import menuBarPng from "../../assets/img/menu-bar.png";
 import searchWhitePng from "../../assets/img/search-white.png";
 import searchGreyPng from "../../assets/img/search-grey.png";
 import logoHeaderWebp from "../../assets/img/logo-header-white.webp";
 import logoHeaderPng from "../../assets/img/logo-header-white.png";
 
-const Header = ({ handleOpenSidebar }) => {
+const Header = ({ toggleSidebar }) => {
   const [query, setQuery] = useState("");
-  const [toggleSearch, setToggleSearch] = useState(false);
+  const [isSearchOpen, toggleSearch] = useToggle(false);
 
   const history = useHistory();
 
@@ -31,8 +32,8 @@ const Header = ({ handleOpenSidebar }) => {
         <div>
           <Toggle
             type="button"
-            style={{ display: toggleSearch ? "none" : "inline-block" }}
-            onClick={() => handleOpenSidebar()}
+            style={{ display: isSearchOpen ? "none" : "inline-block" }}
+            onClick={toggleSidebar}
           >
             <picture>
               <img src={menuBarPng} width="20" alt="Menu" />
@@ -42,7 +43,7 @@ const Header = ({ handleOpenSidebar }) => {
         <div>
           <Link to="/">
             <picture
-              style={{ display: toggleSearch ? "none" : "inline-block" }}
+              style={{ display: isSearchOpen ? "none" : "inline-block" }}
             >
               <source srcSet={logoHeaderWebp} type="image/webp" />
               <img src={logoHeaderPng} height="30" alt="Logo" />
@@ -50,7 +51,7 @@ const Header = ({ handleOpenSidebar }) => {
           </Link>
         </div>
         <div>
-          <SearchBox onSubmit={handleSearch} toggle={toggleSearch}>
+          <SearchBox onSubmit={handleSearch} toggle={isSearchOpen}>
             <Input
               type="text"
               name="search"
@@ -62,13 +63,13 @@ const Header = ({ handleOpenSidebar }) => {
             <Toggle
               type="button"
               onClick={() => {
-                setToggleSearch(!toggleSearch);
+                toggleSearch();
                 setQuery("");
               }}
             >
               <picture>
                 <img
-                  src={toggleSearch ? searchGreyPng : searchWhitePng}
+                  src={isSearchOpen ? searchGreyPng : searchWhitePng}
                   width="20"
                   alt="Search"
                 />

@@ -2,10 +2,12 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import useFetch from "../hooks/useFetch";
+import useToggle from "../hooks/useToggle";
 import styled from "styled-components";
 import device from "../../helpers/device";
 import Header from "../layouts/Header";
 import Footer from "../layouts/Footer";
+import Sidebar from "../layouts/Sidebar";
 import ContentLoader from "react-content-loader";
 import PosterMovieLoader from "../loader/PosterMovieLoader";
 import PosterMovie from "../layouts/PosterMovie";
@@ -13,6 +15,7 @@ import PosterMovie from "../layouts/PosterMovie";
 const SearchMovie = props => {
   const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
   const { query } = useParams();
+  const [isSidebarOpen, toggleSidebar] = useToggle(false);
   const endPoint = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`;
   const response = useFetch(endPoint, { isLoading: true, data: null });
   const { isLoading, data: movieResponses } = response;
@@ -27,7 +30,8 @@ const SearchMovie = props => {
         <title>{seo.title}</title>
       </Helmet>
       <Gradient>
-        <Header />
+        <Header toggleSidebar={toggleSidebar} />
+        <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       </Gradient>
       <Container>
         <SearchResult>

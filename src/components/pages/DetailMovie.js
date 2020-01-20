@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import useFetch from "../hooks/useFetch";
+import useToggle from "../hooks/useToggle";
 import styled from "styled-components";
 import copy from "clipboard-copy";
 import SnackBar from "@material-ui/core/Snackbar";
@@ -41,16 +42,11 @@ const DetailMovie = () => {
   };
 
   const [openSnackBar, setOpenSnackBar] = useState(false);
-  const [openSidebar, setOpenSidebar] = useState(false);
   const [messageSnackbar, setMessageSnackbar] = useState("");
-
-  const handleOpenSidebar = () => {
-    setOpenSidebar(!openSidebar);
-  };
+  const [isSidebarOpen, toggleSidebar] = useToggle(false);
 
   const handleCopy = () => {
     const current_url = window.location.href;
-
     const response = copy(current_url);
     response
       .then(data => {
@@ -69,11 +65,8 @@ const DetailMovie = () => {
         <title>{seo.title}</title>
       </Helmet>
       <Background>
-        <Header handleOpenSidebar={handleOpenSidebar} />
-        <Sidebar
-          openSidebar={openSidebar}
-          handleOpenSidebar={handleOpenSidebar}
-        />
+        <Header toggleSidebar={toggleSidebar} />
+        <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <Main>
           <section style={{ padding: 0 }}>
             <TopPage>
