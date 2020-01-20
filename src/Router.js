@@ -1,19 +1,17 @@
-import React, { Suspense, lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
-// const Home = lazy(() => import("./components/pages/Home"));
-// const DetailMovie = lazy(() => import("./components/pages/DetailMovie"));
-// const SearchMovie = lazy(() => import("./components/pages/SearchMovie"));
-// const PageNotFound = lazy(() => import("./components/pages/PageNotFound"));
+const Home = lazy(() => import("./components/pages/Home"));
+const DetailMovie = lazy(() => import("./components/pages/DetailMovie"));
+const SearchMovie = lazy(() => import("./components/pages/SearchMovie"));
+const PageNotFound = lazy(() => import("./components/pages/PageNotFound"));
 
-/* <Suspense fallback={<div>Loading...</div>}></Suspense>; */
-
-import Home from "./components/pages/Home";
-import DetailMovie from "./components/pages/DetailMovie";
-import SearchMovie from "./components/pages/SearchMovie";
-import PageNotFound from "./components/pages/PageNotFound";
+// import Home from "./components/pages/Home";
+// import DetailMovie from "./components/pages/DetailMovie";
+// import SearchMovie from "./components/pages/SearchMovie";
+// import PageNotFound from "./components/pages/PageNotFound";
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Ubuntu:400,400i,500,700&display=swap');
   @import url("https://fonts.googleapis.com/css?family=Noto+Sans&display=swap");
@@ -53,20 +51,22 @@ const Router = () => {
           <meta name="description" content={seo.description} />
           <meta name="keywords" content={seo.keywords} />
         </Helmet>
-        <Switch>
-          <Route exact path="/" render={routeProps => <Home />}></Route>
-          <Route
-            exact
-            path="/search/:query"
-            render={routeProps => <SearchMovie />}
-          ></Route>
-          <Route
-            exact
-            path="/movie/:id"
-            render={routeProps => <DetailMovie />}
-          ></Route>
-          <Route render={() => <PageNotFound />}></Route>
-        </Switch>
+        <Suspense fallback={<></>}>
+          <Switch>
+            <Route exact path="/" render={routeProps => <Home />}></Route>
+            <Route
+              exact
+              path="/search/:query"
+              render={routeProps => <SearchMovie />}
+            ></Route>
+            <Route
+              exact
+              path="/movie/:id"
+              render={routeProps => <DetailMovie />}
+            ></Route>
+            <Route render={() => <PageNotFound />}></Route>
+          </Switch>
+        </Suspense>
       </HelmetProvider>
     </BrowserRouter>
   );
