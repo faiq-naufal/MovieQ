@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import axios from "axios";
+import useFetch from "../hooks/useFetch";
 import styled from "styled-components";
 import copy from "clipboard-copy";
 import SnackBar from "@material-ui/core/Snackbar";
@@ -29,24 +29,20 @@ const DetailMovie = () => {
   const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
   const { id } = useParams();
   const endPoint = `http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`;
+  const response = useFetch(endPoint, { isLoading: true, data: null });
+  const { isLoading, data: movieResponses } = response;
 
-  const [movie, setMovie] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  let movie = {};
+  if (movieResponses) {
+    movie = movieResponses.data;
+  }
+  const seo = {
+    title: `${movie.Title} | MovieQ`
+  };
+
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const [messageSnackbar, setMessageSnackbar] = useState("");
-
-  useEffect(() => {
-    const getMovie = async () => {
-      setIsLoading(true);
-      const response = await axios.get(endPoint);
-
-      setMovie(response.data);
-      setIsLoading(false);
-    };
-
-    getMovie();
-  }, [endPoint]);
 
   const handleOpenSidebar = () => {
     setOpenSidebar(!openSidebar);
@@ -65,10 +61,6 @@ const DetailMovie = () => {
         setMessageSnackbar("Failed to copy link");
         setOpenSnackBar(true);
       });
-  };
-
-  const seo = {
-    title: `${movie.Title} | MovieQ`
   };
 
   return (

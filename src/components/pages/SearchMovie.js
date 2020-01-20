@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import axios from "axios";
+import useFetch from "../hooks/useFetch";
 import styled from "styled-components";
 import device from "../../helpers/device";
 import Header from "../layouts/Header";
@@ -14,21 +14,9 @@ const SearchMovie = props => {
   const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
   const { query } = useParams();
   const endPoint = `http://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`;
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const getMovie = async () => {
-      setIsLoading(true);
-      const response = await axios.get(endPoint);
-
-      setMovies(response.data.Search);
-      setIsLoading(false);
-    };
-
-    getMovie();
-  }, [endPoint]);
-
+  const response = useFetch(endPoint, { isLoading: true, data: null });
+  const { isLoading, data: movieResponses } = response;
+  const movies = movieResponses ? movieResponses.data.Search : null;
   const seo = {
     title: `Search results for ${query} | MovieQ`
   };
@@ -172,7 +160,7 @@ const MovieCard = styled.li`
 `;
 
 const MovieLabel = styled.div`
-  margin: 1rem 0 2rem 0;
+  margin: 1rem 0 1.5rem 0;
   line-height: 18px;
 `;
 
