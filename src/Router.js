@@ -8,14 +8,7 @@ const DetailMovie = lazy(() => import("./components/pages/DetailMovie"));
 const SearchMovie = lazy(() => import("./components/pages/SearchMovie"));
 const PageNotFound = lazy(() => import("./components/pages/PageNotFound"));
 
-// import Home from "./components/pages/Home";
-// import DetailMovie from "./components/pages/DetailMovie";
-// import SearchMovie from "./components/pages/SearchMovie";
-// import PageNotFound from "./components/pages/PageNotFound";
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Ubuntu:400,400i,500,700&display=swap');
-  @import url("https://fonts.googleapis.com/css?family=Noto+Sans&display=swap");
-
   * {
     margin: 0;
     padding: 0;

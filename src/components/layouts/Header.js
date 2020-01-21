@@ -56,6 +56,8 @@ const Header = ({ toggleSidebar }) => {
               type="text"
               name="search"
               id="search"
+              aria-label="Search Movie"
+              aria-required="true"
               placeholder="Search movie …"
               onChange={handleChange}
               value={query}

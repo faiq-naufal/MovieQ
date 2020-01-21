@@ -37,6 +37,8 @@ const Home = props => {
               type="text"
               name="title"
               id="title"
+              aria-label="Search Movie"
+              aria-required="true"
               placeholder="Search Movie Title"
               value={title}
               onChange={event => setTitle(event.target.value)}
