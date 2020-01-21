@@ -464,13 +464,10 @@ const GenreList = styled.div`
   padding: 5px 12px;
   letter-spacing: 0.3px;
   line-height: normal;
-  font-size: 11px;
+  font-size: 12px;
   margin-right: 5px;
   margin-bottom: 10px;
   text-align: center;
-  @media ${device.tablet} {
-    font-size: 12px;
-  }
 `;
 
 const Title = styled.h1`
