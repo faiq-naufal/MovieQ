@@ -45,9 +45,10 @@ const DetailMovie = () => {
   const [messageSnackbar, setMessageSnackbar] = useState("");
   const [isSidebarOpen, toggleSidebar] = useToggle(false);
 
+  const currentUrl = window.location.href;
+
   const handleCopy = () => {
-    const current_url = window.location.href;
-    const response = copy(current_url);
+    const response = copy(currentUrl);
     response
       .then(data => {
         setMessageSnackbar("Link copied successfully");
@@ -399,13 +400,13 @@ const DetailMovie = () => {
           <section>
             <Container>
               <FlexList style={{ justifyContent: "space-between" }}>
-                <ButtonBox variant="contained">
-                  <picture>
-                    <img width="13" src={bookmarkPng} alt="Save" />
-                  </picture>
-                  Save
-                </ButtonBox>
                 <ButtonBox variant="contained" onClick={handleCopy}>
+                  <picture>
+                    <img width="13" src={bookmarkPng} alt="Copy Link" />
+                  </picture>
+                  Copy Link
+                </ButtonBox>
+                <ButtonBox variant="contained">
                   <picture>
                     <img width="15" src={sharePng} alt="Share" />
                   </picture>
