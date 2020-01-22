@@ -458,7 +458,7 @@ const InfoList = styled.div`
 `;
 
 const GenreList = styled.div`
-  background-color: #a4c12d;
+  background: #a9ca23;
   color: #fff;
   border-radius: 20px;
   padding: 5px 12px;

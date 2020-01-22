@@ -118,11 +118,16 @@ const Gradient = styled.div`
 `;
 
 const Container = styled.div`
-  margin-right: 5%;
-  margin-left: 5%;
+  margin-right: 5.5%;
+  margin-left: 5.5%;
 
   @media ${device.laptop} {
-    max-width: 1200px;
+    max-width: 992px;
+    margin: auto;
+  }
+
+  @media ${device.laptopM} {
+    max-width: 1140px;
     margin: auto;
   }
 `;
