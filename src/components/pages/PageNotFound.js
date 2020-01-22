@@ -17,6 +17,8 @@ const PageNotFound = () => {
     <WrapperAll>
       <Helmet>
         <title>{seo.title}</title>
+        <meta property="og:title" content={seo.title} />
+        <meta name="twitter:title" content={seo.title} />
       </Helmet>
       <Gradient>
         <Header toggleSidebar={toggleSidebar} />

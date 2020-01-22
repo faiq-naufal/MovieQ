@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
-import { Helmet, HelmetProvider } from "react-helmet-async";
+import { HelmetProvider } from "react-helmet-async";
 
 const Home = lazy(() => import("./components/pages/Home"));
 const DetailMovie = lazy(() => import("./components/pages/DetailMovie"));
@@ -29,21 +29,14 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100%;
     overflow-x: hidden;
   }
+
 `;
 
 const Router = () => {
-  const seo = {
-    description: "MovieQ, A web-based movies data based on OMDB API",
-    keywords: "Movie, MovieQ, Search Movie"
-  };
   return (
     <BrowserRouter>
       <GlobalStyle />
       <HelmetProvider>
-        <Helmet>
-          <meta name="description" content={seo.description} />
-          <meta name="keywords" content={seo.keywords} />
-        </Helmet>
         <Suspense fallback={<></>}>
           <Switch>
             <Route exact path="/" render={routeProps => <Home />}></Route>

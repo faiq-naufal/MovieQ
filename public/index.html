@@ -10,8 +10,19 @@
     />
     <meta
       name="description"
-      content="MovieQ, A web-based movies data based on OMDB API"
+      content="MovieQ, A web-based movies list based on OMDB API"
     />
+    <meta
+      property="og:description"
+      content="MovieQ, A web-based movies list based on OMDB API"
+    />
+    <meta
+      name="twitter:description"
+      content="MovieQ, A web-based movies list based on OMDB API"
+    />
+    <meta name="keywords" content="Movie, MovieQ, Search Movie" />
+    <meta property="og:site_name" content="MovieQ" />
+    <meta property="og:image" content="%PUBLIC_URL%/logo256.png" />
     <link rel="preconnect" href="https://storage.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://ajax.googleapis.com" crossorigin />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
@@ -34,11 +45,13 @@
     />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Search Your Movies Here | MovieQ</title>
-    <script type="text/javascript" async>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="text/javascript">
       WebFontConfig = {
-        google: {
-          families: ["Ubuntu:400,400i,500,700|Noto+Sans&display=swap"]
-        }
+        families: ["Ubuntu:400,400i,500,700|Noto+Sans&display=swap"]
       };
       (function() {
         var wf = document.createElement("script");
@@ -49,9 +62,5 @@
         s.parentNode.insertBefore(wf, s);
       })();
     </script>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
   </body>
 </html>

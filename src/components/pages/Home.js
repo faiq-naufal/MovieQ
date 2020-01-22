@@ -25,6 +25,9 @@ const Home = props => {
     <>
       <Helmet>
         <title>{seo.title}</title>
+        <meta property="og:title" content={seo.title} />
+        <meta name="twitter:title" content={seo.title} />
+        <meta property="og:url" content={window.location.href} />
       </Helmet>
       <Background>
         <Container>

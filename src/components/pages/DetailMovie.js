@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import useFetch from "../hooks/useFetch";
 import useToggle from "../hooks/useToggle";
 import styled from "styled-components";
-import copy from "clipboard-copy";
-import SnackBar from "@material-ui/core/Snackbar";
-import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import device, { size } from "../../helpers/device";
@@ -41,29 +38,17 @@ const DetailMovie = () => {
     title: `${movie.Title} | MovieQ`
   };
 
-  const [openSnackBar, setOpenSnackBar] = useState(false);
-  const [messageSnackbar, setMessageSnackbar] = useState("");
   const [isSidebarOpen, toggleSidebar] = useToggle(false);
 
   const currentUrl = window.location.href;
-
-  const handleCopy = () => {
-    const response = copy(currentUrl);
-    response
-      .then(data => {
-        setMessageSnackbar("Link copied successfully");
-        setOpenSnackBar(true);
-      })
-      .catch(error => {
-        setMessageSnackbar("Failed to copy link");
-        setOpenSnackBar(true);
-      });
-  };
 
   return (
     <WrapperAll>
       <Helmet>
         <title>{seo.title}</title>
+        <meta property="og:title" content={seo.title} />
+        <meta name="twitter:title" content={seo.title} />
+        <meta property="og:url" content={window.location.href} />
       </Helmet>
       <Background>
         <Header toggleSidebar={toggleSidebar} />
@@ -400,36 +385,27 @@ const DetailMovie = () => {
           <section>
             <Container>
               <FlexList style={{ justifyContent: "space-between" }}>
-                <ButtonBox variant="contained" onClick={handleCopy}>
+                <ButtonBox variant="contained">
                   <picture>
                     <img width="13" src={bookmarkPng} alt="Copy Link" />
                   </picture>
-                  Copy Link
+                  Save
                 </ButtonBox>
                 <ButtonBox variant="contained">
-                  <picture>
-                    <img width="15" src={sharePng} alt="Share" />
-                  </picture>
-                  Share
+                  <ShareLink
+                    href={`https://facebook.com/sharer/sharer.php?u=${currentUrl}`}
+                    target="_blank"
+                  >
+                    <picture>
+                      <img width="15" src={sharePng} alt="Share" />
+                    </picture>
+                    <span>Share</span>
+                  </ShareLink>
                 </ButtonBox>
               </FlexList>
             </Container>
           </section>
         </Main>
-        <SnackBar
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right"
-          }}
-          open={openSnackBar}
-          onClose={() => {
-            setOpenSnackBar(false);
-            setMessageSnackbar("");
-          }}
-          TransitionComponent={Fade}
-          autoHideDuration={3000}
-          message={messageSnackbar}
-        />
         <Footer />
       </Background>
     </WrapperAll>
@@ -437,6 +413,15 @@ const DetailMovie = () => {
 };
 
 export default DetailMovie;
+
+const ShareLink = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #666;
+  text-decoration: none;
+`;
 
 const InfoList = styled.div`
   min-width: 60px;
