@@ -1,24 +1,30 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default (endPoint, defaultData) => {
-  const [data, setData] = useState(defaultData);
+export default ( endPoint, defaultData ) => {
+  const [ data, setData ] = useState( defaultData );
 
-  useEffect(() => {
+  useEffect( () => {
     const getApiData = async url => {
-      try {
-        const response = await axios.get(endPoint);
-        setData({
-          isLoading: false,
-          data: response
-        });
-      } catch (error) {
-        console.log(error);
-      }
+      let tryFetch;
+      let response;
+      do {
+        try {
+          response = await axios.get( endPoint );
+          tryFetch = false;
+          setData( {
+            isLoading: false,
+            data: response
+          } );
+        } catch ( error ) {
+          tryFetch = true;
+          console.log( error, "  Keep Trying..." );
+        }
+      } while ( tryFetch );
     };
 
-    getApiData(endPoint);
-  }, [endPoint]);
+    getApiData( endPoint );
+  }, [ endPoint ] );
 
   return data;
 };
