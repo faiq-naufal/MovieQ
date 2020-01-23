@@ -5,25 +5,27 @@ export default ( endPoint, defaultData ) => {
   const [ data, setData ] = useState( defaultData );
 
   useEffect( () => {
-    const getApiData = async url => {
-      let tryFetch;
-      let response;
-      do {
-        try {
-          response = await axios.get( endPoint );
-          tryFetch = false;
+    let tryFetch = true;
+
+    const fetchInterval = setInterval( () => {
+      if ( tryFetch === false ) {
+        clearInterval( fetchInterval );
+      }
+      try {
+        const getAPI = async () => {
+          const response = await axios.get( endPoint );
           setData( {
             isLoading: false,
             data: response
           } );
-        } catch ( error ) {
-          tryFetch = true;
-          console.log( error, "  Keep Trying..." );
+          tryFetch = false;
         }
-      } while ( tryFetch );
-    };
-
-    getApiData( endPoint );
+        getAPI();
+      } catch ( error ) {
+        tryFetch = true;
+        console.log( error, " Keep Trying..." );
+      }
+    }, 1000 );
   }, [ endPoint ] );
 
   return data;
