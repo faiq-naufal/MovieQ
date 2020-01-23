@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    /* outline: solid 1px #000; */
   }
 
   body {
@@ -39,7 +40,7 @@ const Router = () => {
       <HelmetProvider>
         <Suspense fallback={<></>}>
           <Switch>
-            <Route exact path="/" render={routeProps => <Home />}></Route>
+            <Route exact path="/" render={() => <Home />}></Route>
             <Route
               exact
               path="/search/:query"

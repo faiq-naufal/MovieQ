@@ -110,13 +110,18 @@ const Gradient = styled.div`
     content: "";
     position: absolute;
     top: -50px;
-    left: -25%;
+    left: -37.5%;
     z-index: -1;
     background: linear-gradient(to bottom, #ff6d5a, #ff4158);
     box-shadow: 0 2px 12px 0 #ff6d5a;
-    width: 150%;
-    min-height: 125px;
+    width: 175%;
+    min-height: 110px;
     border-radius: 50%;
+  }
+  ${device.mobileL} {
+    &::before {
+      min-height: 125px;
+    }
   }
 `;
 
@@ -141,8 +146,8 @@ const SearchResult = styled.div`
   h1 {
     color: #666;
     font-weight: 400;
-    font-size: 1rem;
-    margin: 1.75rem 0;
+    font-size: 0.875rem;
+    margin: 1.75rem 0 1.625rem 0;
   }
 `;
 
@@ -172,14 +177,15 @@ const MovieCard = styled.li`
 `;
 
 const MovieLabel = styled.div`
-  margin: 1rem 0 1.5rem 0;
+  margin: 0.688rem 0 1.5rem 0;
   line-height: 18px;
+  letter-spacing: 0.39px;
 `;
 
 const WrapperLink = styled(Link)`
   width: 100%;
   display: inline-block;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: #666;
   font-weight: 700;
   text-decoration: none;

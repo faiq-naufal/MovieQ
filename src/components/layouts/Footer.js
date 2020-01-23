@@ -36,7 +36,7 @@ const StyledFooter = styled.footer`
     line-height: 24px;
     font-weight: 400px;
     color: #ff6d5a;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
   }
 
   a {

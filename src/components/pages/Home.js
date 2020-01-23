@@ -5,7 +5,7 @@ import logoWebp from "../../assets/img/logo-white.webp";
 import styled from "styled-components";
 import { Helmet } from "react-helmet-async";
 
-const Home = props => {
+const Home = () => {
   const [title, setTitle] = useState("");
 
   let history = useHistory();
@@ -80,27 +80,27 @@ const Form = styled.form`
 `;
 
 const InputSearch = styled.input`
-  min-width: 250px;
+  min-width: 260px;
   background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 1px 0.5px #fff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.41);
   color: #fff;
   text-align: center;
   font-family: "Noto Sans", sans-serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
+  font-size: 0.75rem;
+  letter-spacing: 0.43px;
   border-radius: 20px;
-  padding: 10px 15px;
+  padding: 13.5px 15px;
   transition: 150ms ease-in;
   border: none;
 
   ::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.75rem;
   }
   &:hover,
   &:focus {
     outline: none;
-    box-shadow: 0 0 1px 1px #fff;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.85);
   }
 `;
 
@@ -108,20 +108,20 @@ const InputButton = styled.button`
   margin-top: 1.5rem;
   min-width: 250px;
   background-color: #fff;
-  box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.5);
   color: #656565;
   text-align: center;
-  font-size: 0.85rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.5px;
   border-radius: 20px;
-  padding: 10px 15px;
+  padding: 14px 15px;
   transition: 150ms ease-in;
   border: none;
   cursor: pointer;
   &:hover,
   &:focus {
     outline: none;
-    box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 18px 0 rgba(255, 255, 255, 0.5);
   }
 `;

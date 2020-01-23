@@ -32,11 +32,15 @@ const Header = ({ toggleSidebar }) => {
         <div>
           <Toggle
             type="button"
-            style={{ display: isSearchOpen ? "none" : "inline-block" }}
+            style={{
+              display: isSearchOpen ? "none" : "inline-block",
+              position: "relative",
+              left: "10px"
+            }}
             onClick={toggleSidebar}
           >
             <picture>
-              <img src={menuBarPng} width="20" alt="Menu" />
+              <img src={menuBarPng} width="16" alt="Menu" />
             </picture>
           </Toggle>
         </div>
@@ -46,7 +50,7 @@ const Header = ({ toggleSidebar }) => {
               style={{ display: isSearchOpen ? "none" : "inline-block" }}
             >
               <source srcSet={logoHeaderWebp} type="image/webp" />
-              <img src={logoHeaderPng} height="30" alt="Logo" />
+              <img src={logoHeaderPng} height="26" alt="Logo" />
             </picture>
           </Link>
         </div>
@@ -60,6 +64,7 @@ const Header = ({ toggleSidebar }) => {
               aria-required="true"
               placeholder="Search movie …"
               onChange={handleChange}
+              autoFocus={isSearchOpen}
               value={query}
             />
             <Toggle
@@ -102,13 +107,15 @@ const Input = styled.input`
 
 const SearchBox = styled.form`
   width: 20px;
+  height: 40px;
+  position: relative;
   transition: width 250ms linear, height 250ms linear;
   z-index: 10;
   ${props =>
     props.toggle &&
     css`
       position: absolute;
-      top: 1rem;
+      top: 6px;
       right: 0;
       width: 100%;
       height: 40px;
@@ -116,6 +123,11 @@ const SearchBox = styled.form`
       background: #fff;
       border-radius: 5px;
       box-shadow: 0 0 4px rgba(0, 0, 0, 0.29);
+
+      button {
+        top: 50%;
+        transform: translateY(-50%);
+      }
     `};
 
   ${Input} {
@@ -125,8 +137,6 @@ const SearchBox = styled.form`
   button {
     position: absolute;
     right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
     img {
       width: 16px;
     }
@@ -151,23 +161,35 @@ const Container = styled.div`
 const StyledHeader = styled.header`
   position: relative;
   width: 100%;
-  height: 70px;
+  height: 61px;
   z-index: 1;
-  padding: 1rem 0.5rem;
+  padding: 6px 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
 
   > div:nth-child(1),
   > div:nth-child(3) {
     flex: 0 0 20px;
+    height: 40px;
   }
   > div:nth-child(2) {
     flex: 1 0 0;
+    height: 40px;
     text-align: center;
     padding-left: 10px;
     padding-right: 10px;
+
+    a {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  button {
+    height: 100%;
   }
 `;
 
