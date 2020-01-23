@@ -9,21 +9,21 @@ import searchGreyPng from "../../assets/img/search-grey.png";
 import logoHeaderWebp from "../../assets/img/logo-header-white.webp";
 import logoHeaderPng from "../../assets/img/logo-header-white.png";
 
-const Header = ({ toggleSidebar }) => {
-  const [query, setQuery] = useState("");
-  const [isSearchOpen, toggleSearch] = useToggle(false);
+const Header = ( { toggleSidebar } ) => {
+  const [ query, setQuery ] = useState( "" );
+  const [ isSearchOpen, toggleSearch ] = useToggle( false );
 
   const history = useHistory();
 
   const handleSearch = event => {
     event.preventDefault();
-    if (query) {
-      history.push(`/search/${query}`);
+    if ( query ) {
+      history.push( `/search/${ query }` );
     }
   };
 
   const handleChange = event => {
-    setQuery(event.target.value);
+    setQuery( event.target.value );
   };
 
   return (
@@ -32,30 +32,30 @@ const Header = ({ toggleSidebar }) => {
         <div>
           <Toggle
             type="button"
-            style={{
+            style={ {
               display: isSearchOpen ? "none" : "inline-block",
               position: "relative",
               left: "10px"
-            }}
-            onClick={toggleSidebar}
+            } }
+            onClick={ toggleSidebar }
           >
             <picture>
-              <img src={menuBarPng} width="16" alt="Menu" />
+              <img src={ menuBarPng } alt="Menu" />
             </picture>
           </Toggle>
         </div>
         <div>
           <Link to="/">
             <picture
-              style={{ display: isSearchOpen ? "none" : "inline-block" }}
+              style={ { display: isSearchOpen ? "none" : "inline-block" } }
             >
-              <source srcSet={logoHeaderWebp} type="image/webp" />
-              <img src={logoHeaderPng} height="26" alt="Logo" />
+              <source srcSet={ logoHeaderWebp } type="image/webp" />
+              <img src={ logoHeaderPng } height="26" alt="Logo" />
             </picture>
           </Link>
         </div>
         <div>
-          <SearchBox onSubmit={handleSearch} toggle={isSearchOpen}>
+          <SearchBox onSubmit={ handleSearch } toggle={ isSearchOpen }>
             <Input
               type="text"
               name="search"
@@ -63,21 +63,20 @@ const Header = ({ toggleSidebar }) => {
               aria-label="Search Movie"
               aria-required="true"
               placeholder="Search movie …"
-              onChange={handleChange}
-              autoFocus={isSearchOpen}
-              value={query}
+              onChange={ handleChange }
+              autoFocus={ isSearchOpen }
+              value={ query }
             />
             <Toggle
               type="button"
-              onClick={() => {
+              onClick={ () => {
                 toggleSearch();
-                setQuery("");
-              }}
+                setQuery( "" );
+              } }
             >
               <picture>
                 <img
-                  src={isSearchOpen ? searchGreyPng : searchWhitePng}
-                  width="20"
+                  src={ isSearchOpen ? searchGreyPng : searchWhitePng }
                   alt="Search"
                 />
               </picture>
@@ -130,16 +129,13 @@ const SearchBox = styled.form`
       }
     `};
 
-  ${Input} {
-    display: ${props => (props.toggle ? "block" : "none")};
+  ${Input } {
+    display: ${props => ( props.toggle ? "block" : "none" ) };
   }
 
   button {
     position: absolute;
     right: 10px;
-    img {
-      width: 16px;
-    }
   }
 `;
 
@@ -147,12 +143,12 @@ const Container = styled.div`
   margin-right: 3%;
   margin-left: 3%;
 
-  @media ${device.laptop} {
+  @media ${device.laptop } {
     max-width: 992px;
     margin: auto;
   }
 
-  @media ${device.laptopM} {
+  @media ${device.laptopM } {
     max-width: 1140px;
     margin: auto;
   }
@@ -187,10 +183,6 @@ const StyledHeader = styled.header`
       transform: translate(-50%, -50%);
     }
   }
-
-  button {
-    height: 100%;
-  }
 `;
 
 const Toggle = styled.button`
@@ -198,4 +190,15 @@ const Toggle = styled.button`
   border: none;
   outline: none;
   background: transparent;
+  height: 100%;
+
+  img {
+    width: 16px;
+  }
+
+  @media ${device.tablet } {
+    img {
+      width: 20px;
+    }
+  }
 `;
