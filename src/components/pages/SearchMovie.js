@@ -99,7 +99,7 @@ const WrapperAll = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  min-height: 100%;
 `;
 
 const Gradient = styled.div`
