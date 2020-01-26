@@ -26,60 +26,58 @@ import ContentLoaded from "react-content-loader";
 const DetailMovie = () => {
   const API_KEY = process.env.REACT_APP_OMDB_API_KEY;
   const { id } = useParams();
-  const endPoint = `http://www.omdbapi.com/?apikey=${ API_KEY }&i=${ id }`;
-  const response = useFetch( endPoint, { isLoading: true, data: null } );
+  const endPoint = `http://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`;
+  const response = useFetch(endPoint, { isLoading: true, data: null });
   const { isLoading, data: movieResponses } = response;
 
   let movie = {};
-  if ( movieResponses ) {
+  if (movieResponses) {
     movie = movieResponses.data;
-
   }
   const seo = {
-    title: `${ movie.Title || `Detail of Movie` } | MovieQ`
+    title: `${movie.Title || `Detail of Movie`} | MovieQ`
   };
 
-  const [ isSidebarOpen, toggleSidebar ] = useToggle( false );
+  const [isSidebarOpen, toggleSidebar] = useToggle(false);
 
   const currentUrl = window.location.href;
-
 
   return (
     <WrapperAll>
       <Helmet>
-        <title>{ seo.title }</title>
-        <meta property="og:title" content={ seo.title } />
-        <meta name="twitter:title" content={ seo.title } />
-        <meta property="og:url" content={ window.location.href } />
+        <title>{seo.title}</title>
+        <meta property="og:title" content={seo.title} />
+        <meta name="twitter:title" content={seo.title} />
+        <meta property="og:url" content={window.location.href} />
       </Helmet>
       <Background>
-        <Header toggleSidebar={ toggleSidebar } />
-        <Sidebar isSidebarOpen={ isSidebarOpen } toggleSidebar={ toggleSidebar } />
+        <Header toggleSidebar={toggleSidebar} />
+        <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <Main>
-          { !movie.Error ? (
+          {!movie.Error ? (
             <>
-              <section style={ { padding: 0 } }>
+              <section style={{ padding: 0 }}>
                 <TopPage>
                   <Container>
-                    <div style={ { paddingTop: "5%" } }>
+                    <div style={{ paddingTop: "5%" }}>
                       <LeftPoster>
-                        { isLoading ? (
+                        {isLoading ? (
                           <PosterMovieLoader />
                         ) : (
-                            <PosterMovie
-                              poster={ movie.Poster }
-                              title={ movie.Title }
-                            />
-                          ) }
+                          <PosterMovie
+                            poster={movie.Poster}
+                            title={movie.Title}
+                          />
+                        )}
                       </LeftPoster>
                       <RightPoster>
-                        { isLoading ? (
+                        {isLoading ? (
                           <ContentLoaded
-                            style={ {
+                            style={{
                               width: "50%",
                               maxWidth: "450px",
                               height: "80px"
-                            } }
+                            }}
                             viewBox="0 0 450 80"
                           >
                             <rect
@@ -116,39 +114,39 @@ const DetailMovie = () => {
                             />
                           </ContentLoaded>
                         ) : (
-                            <>
-                              <Title>{ movie.Title }</Title>
-                              <FlexList wrap="true">
-                                <InfoList>
-                                  <picture>
-                                    <img
-                                      width="14"
-                                      src={ calendarPng }
-                                      alt="Logo"
-                                    />
-                                  </picture>
-                                  { movie.Year !== "N/A" ? movie.Year : "Unknown" }
-                                </InfoList>
-                                <InfoList>
-                                  <picture>
-                                    <img width="16" src={ timePng } alt="Logo" />
-                                  </picture>
-                                  { movie.Runtime !== "N/A"
-                                    ? movie.Runtime
-                                    : "Unknown" }
-                                </InfoList>
-                                <InfoList>
-                                  <picture>
-                                    <img width="16" src={ infoPng } alt="Logo" />
-                                  </picture>
-                                  { movie.Rated === "N/A" ||
-                                    movie.Rated === "Not Rated"
-                                    ? "Not Rated"
-                                    : `Rated ${ movie.Rated }` }
-                                </InfoList>
-                              </FlexList>
-                            </>
-                          ) }
+                          <>
+                            <Title>{movie.Title}</Title>
+                            <FlexList wrap="true">
+                              <InfoList>
+                                <picture>
+                                  <img
+                                    width="14"
+                                    src={calendarPng}
+                                    alt="Logo"
+                                  />
+                                </picture>
+                                {movie.Year !== "N/A" ? movie.Year : "Unknown"}
+                              </InfoList>
+                              <InfoList>
+                                <picture>
+                                  <img width="16" src={timePng} alt="Logo" />
+                                </picture>
+                                {movie.Runtime !== "N/A"
+                                  ? movie.Runtime
+                                  : "Unknown"}
+                              </InfoList>
+                              <InfoList>
+                                <picture>
+                                  <img width="16" src={infoPng} alt="Logo" />
+                                </picture>
+                                {movie.Rated === "N/A" ||
+                                movie.Rated === "Not Rated"
+                                  ? "Not Rated"
+                                  : `Rated ${movie.Rated}`}
+                              </InfoList>
+                            </FlexList>
+                          </>
+                        )}
                       </RightPoster>
                     </div>
                   </Container>
@@ -158,13 +156,13 @@ const DetailMovie = () => {
                 <Container>
                   <FlexList>
                     <RightPoster>
-                      { isLoading ? (
+                      {isLoading ? (
                         <ContentLoaded
-                          style={ {
+                          style={{
                             maxWidth: "300px",
                             width: "100%",
                             height: "50px"
-                          } }
+                          }}
                           viewBox="0 0 300 50"
                         >
                           <rect
@@ -209,25 +207,25 @@ const DetailMovie = () => {
                           />
                         </ContentLoaded>
                       ) : (
-                          <FlexList wrap="true">
-                            { movie.Genre.split( ", " ).map( ( genre, index ) => (
-                              <GenreList key={ index }>{ genre }</GenreList>
-                            ) ) }
-                          </FlexList>
-                        ) }
+                        <FlexList wrap="true">
+                          {movie.Genre.split(", ").map((genre, index) => (
+                            <GenreList key={index}>{genre}</GenreList>
+                          ))}
+                        </FlexList>
+                      )}
                     </RightPoster>
                   </FlexList>
                 </Container>
               </section>
-              <section style={ { paddingTop: 0, clear: "both" } }>
+              <section style={{ paddingTop: 0, clear: "both" }}>
                 <Container>
-                  { isLoading ? (
+                  {isLoading ? (
                     <ContentLoaded
-                      style={ {
+                      style={{
                         maxWidth: "500px",
                         width: "100%",
                         height: "30px"
-                      } }
+                      }}
                       viewBox="0 0 400 30"
                     >
                       <rect
@@ -256,62 +254,62 @@ const DetailMovie = () => {
                       />
                     </ContentLoaded>
                   ) : (
-                      <FlexList style={ { maxWidth: "450px" } }>
-                        { movie.Ratings.map( ( rating, index ) => {
-                          switch ( rating.Source ) {
-                            case "Internet Movie Database":
-                              return (
-                                <RatingList key={ index }>
-                                  <Imdb>
-                                    <img src={ imdbPng } alt="imDB" />
-                                  </Imdb>
-                                  <strong>{ rating.Value }</strong>
-                                </RatingList>
-                              );
-                            case "Rotten Tomatoes":
-                              return (
-                                <RatingList key={ index }>
-                                  <RottenTomatoes>
-                                    <img
-                                      width="24"
-                                      src={ rottenTomatoesPng }
-                                      alt="Rotten Tomatoes"
-                                    />
-                                  </RottenTomatoes>
-                                  <strong>{ rating.Value }</strong>
-                                </RatingList>
-                              );
-                            case "Metacritic":
-                              return (
-                                <RatingList key={ index }>
-                                  <MetaCritic>
-                                    <img
-                                      width="24"
-                                      src={ metacriticPng }
-                                      alt="Meta Critic"
-                                    />
-                                  </MetaCritic>
-                                  <strong>{ rating.Value }</strong>
-                                </RatingList>
-                              );
-                            default:
-                              return (
-                                <RatingList>
-                                  <strong>There is no available rating</strong>
-                                </RatingList>
-                              );
-                          }
-                        } ) }
-                      </FlexList>
-                    ) }
+                    <FlexList style={{ maxWidth: "450px" }}>
+                      {movie.Ratings.map((rating, index) => {
+                        switch (rating.Source) {
+                          case "Internet Movie Database":
+                            return (
+                              <RatingList key={index}>
+                                <Imdb>
+                                  <img src={imdbPng} alt="imDB" />
+                                </Imdb>
+                                <strong>{rating.Value}</strong>
+                              </RatingList>
+                            );
+                          case "Rotten Tomatoes":
+                            return (
+                              <RatingList key={index}>
+                                <RottenTomatoes>
+                                  <img
+                                    width="24"
+                                    src={rottenTomatoesPng}
+                                    alt="Rotten Tomatoes"
+                                  />
+                                </RottenTomatoes>
+                                <strong>{rating.Value}</strong>
+                              </RatingList>
+                            );
+                          case "Metacritic":
+                            return (
+                              <RatingList key={index}>
+                                <MetaCritic>
+                                  <img
+                                    width="24"
+                                    src={metacriticPng}
+                                    alt="Meta Critic"
+                                  />
+                                </MetaCritic>
+                                <strong>{rating.Value}</strong>
+                              </RatingList>
+                            );
+                          default:
+                            return (
+                              <RatingList>
+                                <strong>There is no available rating</strong>
+                              </RatingList>
+                            );
+                        }
+                      })}
+                    </FlexList>
+                  )}
                 </Container>
               </section>
               <section>
                 <Container>
                   <Actors>
-                    { isLoading ? (
+                    {isLoading ? (
                       <ContentLoaded
-                        style={ { width: "100%", height: "40px" } }
+                        style={{ width: "100%", height: "40px" }}
                         viewBox="0 0 100 40"
                       >
                         <rect
@@ -334,17 +332,17 @@ const DetailMovie = () => {
                     ) : movie.Actors !== "N/A" ? (
                       movie.Actors
                     ) : (
-                          "Unknown actors / actresses"
-                        ) }
+                      "Unknown actors / actresses"
+                    )}
                   </Actors>
                 </Container>
               </section>
               <section>
                 <Container>
                   <Creators>
-                    { isLoading ? (
+                    {isLoading ? (
                       <ContentLoaded
-                        style={ { width: "100%", height: "40px" } }
+                        style={{ width: "100%", height: "40px" }}
                         viewBox="0 0 100 40"
                       >
                         <rect
@@ -365,32 +363,32 @@ const DetailMovie = () => {
                         />
                       </ContentLoaded>
                     ) : (
-                        <>
-                          <FlexList>
-                            <label>Director</label>
-                            <Name>
-                              { movie.Director !== "N/A"
-                                ? movie.Director
-                                : "Unknown" }
-                            </Name>
-                          </FlexList>
-                          <FlexList>
-                            <label>Writer</label>
-                            <Name>
-                              { movie.Writer !== "N/A" ? movie.Writer : "Unknown" }
-                            </Name>
-                          </FlexList>
-                        </>
-                      ) }
+                      <>
+                        <FlexList>
+                          <label>Director</label>
+                          <Name>
+                            {movie.Director !== "N/A"
+                              ? movie.Director
+                              : "Unknown"}
+                          </Name>
+                        </FlexList>
+                        <FlexList>
+                          <label>Writer</label>
+                          <Name>
+                            {movie.Writer !== "N/A" ? movie.Writer : "Unknown"}
+                          </Name>
+                        </FlexList>
+                      </>
+                    )}
                   </Creators>
                 </Container>
               </section>
               <section>
                 <Container>
                   <Plot>
-                    { isLoading ? (
+                    {isLoading ? (
                       <ContentLoaded
-                        style={ { width: "100%", height: "40px" } }
+                        style={{ width: "100%", height: "40px" }}
                         viewBox="0 0 100 40"
                       >
                         <rect
@@ -411,31 +409,32 @@ const DetailMovie = () => {
                         />
                       </ContentLoaded>
                     ) : (
-                        <p>
-                          { movie.Plot !== "N/A"
-                            ? movie.Plot
-                            : "No synopsis available" }
-                        </p>
-                      ) }
+                      <p>
+                        {movie.Plot !== "N/A"
+                          ? movie.Plot
+                          : "No synopsis available"}
+                      </p>
+                    )}
                   </Plot>
                 </Container>
               </section>
               <section>
                 <Container>
-                  <FlexList style={ { justifyContent: "space-between" } }>
+                  <FlexList style={{ justifyContent: "space-between" }}>
                     <ButtonBox variant="contained">
                       <picture>
-                        <img width="13" src={ bookmarkPng } alt="Copy Link" />
+                        <img width="13" src={bookmarkPng} alt="Copy Link" />
                       </picture>
                       <span>Save</span>
                     </ButtonBox>
                     <ButtonBox variant="contained">
                       <ShareLink
-                        href={ `https://facebook.com/sharer/sharer.php?u=${ currentUrl }` }
+                        href={`https://facebook.com/sharer/sharer.php?u=${currentUrl}`}
                         target="_blank"
+                        rel="noreferrer"
                       >
                         <picture>
-                          <img width="15" src={ sharePng } alt="Share" />
+                          <img width="15" src={sharePng} alt="Share" />
                         </picture>
                         <span>Share</span>
                       </ShareLink>
@@ -445,8 +444,8 @@ const DetailMovie = () => {
               </section>
             </>
           ) : (
-              <div style={ { textAlign: "center" } }>{ movie.Error }</div>
-            ) }
+            <div style={{ textAlign: "center" }}>{movie.Error}</div>
+          )}
         </Main>
         <Footer />
       </Background>
@@ -480,7 +479,7 @@ const InfoList = styled.div`
     display: flex;
     align-items: center;
   }
-  @media ${device.tablet } {
+  @media ${device.tablet} {
     font-size: 1rem;
   }
 `;
@@ -497,7 +496,7 @@ const GenreList = styled.div`
   margin-bottom: 10px;
   text-align: center;
 
-  @media ${device.tablet } {
+  @media ${device.tablet} {
     font-size: 12px;
   }
 `;
@@ -508,7 +507,7 @@ const Title = styled.h1`
   font-weight: 500;
   letter-spacing: 0.5px;
   margin: 0;
-  @media ${device.tablet } {
+  @media ${device.tablet} {
     font-size: 2.5rem;
   }
 
@@ -544,17 +543,17 @@ const BoxShadow = styled.div`
   letter-spacing: 0.3px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 
-  @media ${device.mobileL } {
+  @media ${device.mobileL} {
     padding: 1rem;
     font-size: 0.813rem;
   }
-  @media ${device.tablet } {
+  @media ${device.tablet} {
     font-size: 0.875rem;
   }
 `;
 
-const Actors = styled( BoxShadow )`
-  background-image: url(${elStarPng });
+const Actors = styled(BoxShadow)`
+  background-image: url(${elStarPng});
   background-repeat: no-repeat;
   background-size: 38px;
   background-position: top left;
@@ -564,7 +563,7 @@ const Actors = styled( BoxShadow )`
   letter-spacing: 0.3px;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
-  @media ${device.tablet } {
+  @media ${device.tablet} {
     padding: 1.5rem 1rem;
   }
 `;
@@ -574,12 +573,12 @@ const Name = styled.div`
   flex: 1;
 `;
 
-const Creators = styled( BoxShadow )`
+const Creators = styled(BoxShadow)`
   color: #666;
   letter-spacing: 0.3px;
   line-height: 20px;
 
-  @media ${device.tablet } {
+  @media ${device.tablet} {
     padding: 1.5rem 1rem;
   }
   label {
@@ -593,17 +592,17 @@ const Creators = styled( BoxShadow )`
   }
 `;
 
-const Plot = styled( BoxShadow )`
+const Plot = styled(BoxShadow)`
   color: #666;
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.4px;
-  @media ${device.tablet } {
+  @media ${device.tablet} {
     padding: 1.5rem 1rem;
   }
 `;
 
-const ButtonBox = withStyles( theme => ( {
+const ButtonBox = withStyles(theme => ({
   root: {
     backgroundColor: "#fff",
     borderRadius: "5px",
@@ -611,7 +610,7 @@ const ButtonBox = withStyles( theme => ( {
     color: "#666",
     fontFamily: "Ubuntu, sans-serif",
     fontSize: "0.75rem",
-    [ theme.breakpoints.up( "768" ) ]: {
+    [theme.breakpoints.up("768")]: {
       fontSize: "0.875rem"
     },
     textTransform: "initial",
@@ -632,13 +631,13 @@ const ButtonBox = withStyles( theme => ( {
       marginRight: "0.5rem"
     }
   }
-} ) )( Button );
+}))(Button);
 
 const MetaCritic = styled.picture`
   img {
     width: 24px;
   }
-  @media ${device.tablet } {
+  @media ${device.tablet} {
     > img {
       width: 30px;
     }
@@ -649,7 +648,7 @@ const RottenTomatoes = styled.picture`
   img {
     width: 24px;
   }
-  @media ${device.tablet } {
+  @media ${device.tablet} {
     > img {
       width: 30px;
     }
@@ -660,7 +659,7 @@ const Imdb = styled.picture`
   > img {
     width: 30px;
   }
-  @media ${device.tablet } {
+  @media ${device.tablet} {
     > img {
       width: 40px;
     }
@@ -683,7 +682,7 @@ const RatingList = styled.div`
     color: #666;
     letter-spacing: 0.3px;
 
-    @media ${device.tablet } {
+    @media ${device.tablet} {
       font-size: 0.8125rem;
     }
   }
@@ -693,7 +692,7 @@ const FlexList = styled.div`
   list-style: none;
   display: flex;
   flex-direction: row;
-  flex-wrap: ${props => ( props.wrap ? "wrap" : "nowrap" ) };
+  flex-wrap: ${props => (props.wrap ? "wrap" : "nowrap")};
 `;
 
 const TopPage = styled.div`
@@ -714,12 +713,12 @@ const Container = styled.div`
   margin-right: 5.5%;
   margin-left: 5.5%;
 
-  @media ${device.laptop } {
+  @media ${device.laptop} {
     max-width: 992px;
     margin: auto;
   }
 
-  @media ${device.laptopM } {
+  @media ${device.laptopM} {
     max-width: 1140px;
     margin: auto;
   }

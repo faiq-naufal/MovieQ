@@ -58,20 +58,20 @@ export default Home;
 
 const Background = styled.div`
   background: linear-gradient(to bottom, #ff6d5a, #ff4158);
-  min-height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-self: stretch;
-  min-height: -webkit-fill-available;
-  min-height: -moz-available;
-  min-height: stretch;
   align-items: center;
   justify-content: space-around;
   padding-top: 20vh;
   padding-bottom: 10vh;
+  flex: 1;
 `;
 
 const Form = styled.form`
@@ -86,16 +86,17 @@ const InputSearch = styled.input`
   color: #fff;
   text-align: center;
   font-family: "Noto Sans", sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   letter-spacing: 0.43px;
   border-radius: 20px;
-  padding: 13.5px 15px;
+  padding: 13px 15px;
   transition: 150ms ease-in;
   border: none;
 
   ::placeholder {
     color: rgba(255, 255, 255, 0.62);
-    font-size: 0.75rem;
+    opacity: 1;
+    font-size: 0.8rem;
   }
   &:hover,
   &:focus {
@@ -111,11 +112,11 @@ const InputButton = styled.button`
   box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.5);
   color: #656565;
   text-align: center;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.5px;
   border-radius: 20px;
-  padding: 14px 15px;
+  padding: 13.5px 15px;
   transition: 150ms ease-in;
   border: none;
   cursor: pointer;

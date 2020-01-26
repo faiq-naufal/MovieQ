@@ -14,7 +14,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    /* outline: solid 1px #000; */
   }
 
   body {
@@ -24,9 +23,9 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
   }
   body, html, #root {
-    height: -webkit-fill-available;
-    height: -moz-available;
-    height: stretch;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     min-height: 100%;
     overflow-x: hidden;
   }
