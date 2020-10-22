@@ -1,0 +1,55 @@
+html,
+body,
+#___gatsby,
+#gatsby-focus-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-height: 100%;
+  min-height: calc(var(--vh, 1vh) * 100);
+  height: auto;
+  overflow-x: hidden;
+}
+body {
+  font-family: "Ubuntu", "Helvetica Neue", "Arial", "sans-serif";
+  font-size: 1rem;
+}
+
+img,
+button {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+*:focus {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+::-moz-selection {
+  background: #ff6d5a;
+  color: #fff;
+}
+::selection {
+  background: #ff6d5a;
+  color: #fff;
+}
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#nprogress .bar {
+  height: 4px;
+}

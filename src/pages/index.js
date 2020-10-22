@@ -1,22 +1,37 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { useEffect } from "react"
+import Helmet from "react-helmet"
+import Seo from "../components/commons/Seo"
+import HomeLayout from "../components/pages/home"
+import useSiteMetaData from "../components/hooks/useSiteMetaData"
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+const setDocHeight = () => {
+  let vh = window.innerHeight * 0.01
+  document.documentElement.style.setProperty("--vh", `${vh}px`)
+}
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+export default function Home() {
+  useEffect(() => {
+    window.addEventListener("resize", setDocHeight, true)
+    window.addEventListener("orientationchange", setDocHeight, true)
+    setDocHeight()
 
-export default IndexPage
+    return () => {
+      window.removeEventListener("resize", setDocHeight, true)
+      window.removeEventListener("orientationchange", setDocHeight, true)
+    }
+  }, [])
+
+  const { siteUrl } = useSiteMetaData()
+  const title = `Home - Search Your Movies Here | MovieQ`
+  const description = `Home - Search Your Movies Here | MovieQ`
+
+  return (
+    <>
+      <Helmet>
+        <link rel="canonical" href={siteUrl} />
+      </Helmet>
+      <Seo title={title} description={description} />
+      <HomeLayout />
+    </>
+  )
+}

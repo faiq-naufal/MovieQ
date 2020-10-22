@@ -1,13 +1,16 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "movieq",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "MovieQ",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Faiq Naufal",
   "dependencies": {
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
     "@material-ui/core": "^4.11.0",
+    "clipboard-copy": "^3.1.0",
+    "fontsource-noto-sans": "^3.0.10",
+    "fontsource-ubuntu": "^3.0.9",
     "gatsby": "^2.24.66",
     "gatsby-image": "^2.4.20",
     "gatsby-plugin-emotion": "^4.3.12",
@@ -27,15 +30,18 @@
     "preact-render-to-string": "^5.1.10",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
+    "react-content-loader": "^5.1.2",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0",
     "react-icons": "^3.11.0",
     "react-lazy-load-image-component": "^1.5.0",
+    "react-lazyload": "^3.0.0",
     "react-loadable": "^5.5.0",
-    "typeface-ubuntu": "0.0.65"
+    "react-loading-skeleton": "^2.1.1",
+    "swr": "^0.3.5"
   },
   "devDependencies": {
-    "@hot-loader/react-dom": "^17.0.0-rc.2",
+    "dotenv": "^8.2.0",
     "gatsby-plugin-remove-trailing-slashes": "^2.3.13",
     "prettier": "2.1.2"
   },
